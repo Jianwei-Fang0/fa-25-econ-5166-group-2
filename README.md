@@ -18,8 +18,12 @@ See [ECON5166-期末專案的管理與交付規範](https://docs.google.com/docu
 
 |  Name | Student ID | Github Account| Role |
 | ---| --- | --- | --- |
-| Name 1 | ID 1 | Account 1 | Role 1 |
-| Name 2 | ID 2 | Account 2 | Role 2 |
+|方建幃 | B11302133 | Jianwei-Fang0 | D |
+|吳祐儀 | B11103009 | Account 2 | PM |
+|王薏茹 | B11605063 | Account 2 | D |
+|范姜德 | B12303079 | Account 2 | Role 2 |
+|馬一翔 | b11103053 | cccbbgg | DA |
+
 
 ## Link to Meeting Note 
 [Link](url)
