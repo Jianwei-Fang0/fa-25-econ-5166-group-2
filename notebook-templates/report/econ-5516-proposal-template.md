@@ -1,7 +1,7 @@
 - Author: Yu-Chang Chen
 - Date created: 20250828
 - File Description: This the template for the proposal. Please use this template for your proposal.
-- [File link](https://docs.google.com/document/d/1cTVvHdPR0MJYz7FrR9WZS7abSe4ZAyJoXvhlM8IUgEw/edit?usp=sharing)
+- [[File link](https://docs.google.com/document/d/1cTVvHdPR0MJYz7FrR9WZS7abSe4ZAyJoXvhlM8IUgEw/edit?usp=sharing)](https://docs.google.com/document/d/10Xbxen_s5TmOsPo2-gQypyKfvEBW7UxVojC8jNPrcJg/edit?hl=zh-tw&tab=t.0)
 - External file update log:
     - 20250828: file created
-    - YYYYMMDD: <description>
+    - 20250928: draft updated
