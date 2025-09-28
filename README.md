@@ -21,7 +21,7 @@ See [ECON5166-期末專案的管理與交付規範](https://docs.google.com/docu
 |方建幃 | B11302133 | Jianwei-Fang0 | DE |
 |吳祐儀 | B11103009 | b11103009 | PM |
 |王薏茹 | B11605063 | yiiiiiru | DA |
-|范姜德 | B12303079 | DNonemu | D |
+|范姜德 | B12303079 | DNonemu | DE |
 |馬一翔 | b11103053 | cccbbgg | DA |
 
 
