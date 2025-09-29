@@ -5,3 +5,4 @@
 - External file update log:
     - 20250828: file created
     - 20250928: draft updated
+    - 20250929: 2. and 3. description created
