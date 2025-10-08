@@ -2,7 +2,7 @@ import pandas as pd
 import time
 ## 加 header
 
-data_path= "data\\raw\\202501_YouBike.csv"
+data_path= "data\\raw\\202403_YouBike.csv"
 
 with open(data_path, "r", encoding="utf-8", errors="replace") as f:
     raw_data = pd.read_csv(f, header=None)
@@ -31,8 +31,8 @@ ntu_station = pd.read_csv("data/raw/ntu_area_ubike_stations_new.csv")
 ntu_stations = set(ntu_station["sna"].apply(extract_station_name))
 
 # 分批處理大檔案
-saved_fined_datapath = "data\\processed\\ntu_youbike_data_202501.csv"
-flow_datapath = "data\\processed\\station_flow_202501.csv"
+saved_fined_datapath = "data\\processed\\ntu_youbike_data_202403.csv"
+flow_datapath = "data\\processed\\station_flow_202403.csv"
 
 chunk_size = 100000  # 每次處理10萬筆
 ntu_data_chunks = []
@@ -181,8 +181,8 @@ else:
 total_time = time.time() - start_time
 print(f"\n總處理時間: {total_time:.1f} 秒")
 
-# import pandas as pd
-fined_data = pd.read_csv("data\processed\station_flow_202501.csv")
+import pandas as pd
+fined_data = pd.read_csv("data\processed\station_flow\station_flow_202406.csv")
 return_data_dates = sorted(fined_data['date'].unique())
 print(f"歸還數據日期範圍: {min(return_data_dates)} 到 {max(return_data_dates)}")
 print(f"歸還數據日期數量: {len(return_data_dates)}")
