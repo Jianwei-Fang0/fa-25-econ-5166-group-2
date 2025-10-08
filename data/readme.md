@@ -27,6 +27,11 @@ This directory contains YouBike data processing pipeline for NTU area analysis.
 - `bike_type`: Bike type (一般車/電輔車)
 - `date`: Date
 
+**Raw Data Schema Example:**
+| borrow_datetime | borrow_site | return_datetime | return_site | borrowing_time | bike_type | date |
+|-----------------|-------------|-----------------|-------------|----------------|-----------|------|
+| 2025-01-13 15:00:00 | 捷運古亭站(8號出口) | 2025-01-13 21:00:00 | 新生南路三段52號前 | 05:34:25 | 電輔車 | 2025-01-13 |
+
 ### 📁 `/processed/` - Processed Data Files
 
 #### 🚴‍♂️ NTU YouBike Data (`/ntu_youbike_data/`)
@@ -62,23 +67,46 @@ This directory contains YouBike data processing pipeline for NTU area analysis.
 - `borrow_count`: Number of borrows
 - `return_count`: Number of returns
 
+**Station Flow Schema Example:**
+| station | date | hour | borrow_count | return_count |
+|---------|------|------|--------------|--------------|
+| 基隆長興路口 | 2025-01-01 | 1 | 6.0 | 4.0 |
+
 #### 🏢 Station Information
 | File Name | Description | Records | Content |
 |-----------|-------------|---------|---------|
 | `ntu_area_ubike_stations_new.csv` | NTU station info | 75 | Station details with coordinates and capacity |
 | `routes_with_sno_clean.csv` | Route information | 5,255 | Station-to-station routes with distances |
 
-**Station Info Schema:**
-- `sno`: Station number
-- `sna`: Station name
-- `sarea`: Area name
-- `latitude`: Latitude coordinate
-- `longitude`: Longitude coordinate
-- `ar`: Address
-- `sareaen`: English area name
-- `aren`: English address
-- `act`: Active status
-- `total`: Total capacity
+**NTU Station Info Schema (`ntu_area_ubike_stations_new.csv`):**
+- `sno`: Station number (e.g., 500119047)
+- `sna`: Station name (e.g., "YouBike2.0_臺大土木系館")
+- `sarea`: Area name (e.g., "臺大公館校區")
+- `latitude`: Latitude coordinate (e.g., 25.01761)
+- `longitude`: Longitude coordinate (e.g., 121.53844)
+- `ar`: Address (e.g., "臺大土木工程學系所南側")
+- `sareaen`: English area name (e.g., "NTU Dist")
+- `aren`: English address (e.g., "NTU Dept. of Civil Engineering(South)")
+- `act`: Active status (0=inactive, 1=active)
+- `total`: Total bike capacity (e.g., 30.0)
+
+**NTU Station Info Schema Example (`ntu_area_ubike_stations_new.csv`):**
+| sno | sna | sarea | latitude | longitude | ar | sareaen | aren | act | total |
+|-----|-----|-------|----------|-----------|----|---------|-----|-----|-------|
+| 500119047 | YouBike2.0_臺大土木系館 | 臺大公館校區 | 25.01761 | 121.53844 | 臺大土木工程學系所南側 | NTU Dist | NTU Dept. of Civil Engineering(South) | 0 | 30.0 |
+
+**Route Information Schema (`routes_with_sno_clean.csv`):**
+- `origin`: Origin station name (e.g., "YouBike2.0_辛亥復興路口西北側")
+- `destination`: Destination station name (e.g., "YouBike2.0_新生南路三段52號前")
+- `distance_km`: Distance in kilometers (e.g., 1.143)
+- `duration_min`: Estimated travel time in minutes (e.g., 4.3)
+- `origin_sno`: Origin station number (e.g., 500101005.0)
+- `destination_sno`: Destination station number (e.g., 500101008.0)
+
+**Route Information Schema Example (`routes_with_sno_clean.csv`):**
+| origin | destination | distance_km | duration_min | origin_sno | destination_sno |
+|--------|-------------|-------------|--------------|------------|-----------------|
+| YouBike2.0_辛亥復興路口西北側 | YouBike2.0_新生南路三段52號前 | 1.143 | 4.3 | 500101005.0 | 500101008.0 |
 
 ### 📁 `/code/` - Processing Scripts
 | File Name | Description | Purpose |
