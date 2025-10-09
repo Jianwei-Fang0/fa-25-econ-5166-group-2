@@ -6,7 +6,7 @@
 
 # Ignore raw and processed data folders
 data/raw/
-data/processed/
+
 
 # User-specific files
 *.rsuser
