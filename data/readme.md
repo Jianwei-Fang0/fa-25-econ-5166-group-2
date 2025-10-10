@@ -75,7 +75,7 @@ This directory contains YouBike data processing pipeline for NTU area analysis.
 #### 🏢 Station Information
 | File Name | Description | Records | Content |
 |-----------|-------------|---------|---------|
-| `ntu_area_ubike_stations_new.csv` | NTU station info | 75 | Station details with coordinates and capacity |
+| `ntu_area_ubike_stations_new.csv` | NTU station info | 73 | Station details with coordinates and capacity |
 | `routes_with_sno_clean.csv` | Route information | 5,255 | Station-to-station routes with distances |
 
 **NTU Station Info Schema (`ntu_area_ubike_stations_new.csv`):**
