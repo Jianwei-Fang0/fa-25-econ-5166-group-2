@@ -1,0 +1,349 @@
+---
+title: " preview "
+author: " group 2 "
+date: "2025-11-04"
+output:
+  pdf_document:
+    latex_engine: xelatex
+header-includes:
+- \usepackage{xeCJK}
+- \setCJKmainfont{冬青黑體繁體中文}
+---
+
+# 1.簡介目的
+
+# 預測各YouBike站點的租借量／還車量，目的是為了正確預測派出的補車人數，以提升車輛調度效率，降低人力成本；並且從中理解時段與天氣變數對流量的影響。
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(tibble)
+library(purrr)
+library(randomForest)
+library(lubridate)
+library(data.table)
+library(ranger)
+df_merged <- read_csv("df_merged.csv")
+
+```
+
+
+# 2.預測使用的資料
+# (1)依時間排列：日期、小時
+# (2)站點資訊：每個站的車位總數、每小時借車量、還車量...
+# (3)天氣資訊：該小時的降雨量、溫度、風速...
+# (4)新增dummy variable：尖峰時段、假日、深夜、下雨、高溫、強風...
+```{r , echo=FALSE}
+
+df_merged %>%
+dplyr::select(1:8) %>%
+head(5)
+```
+
+
+# 3.對應變數(y)造成影響的自變數(x)
+
+# (1)是否尖峰：8點, 9點, 17點, 18點
+```{r , echo=FALSE}
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# 🚉 篩選單一站點
+df_single <- df_merged %>%
+  filter(station == "捷運公館站(2號出口)")
+
+# 1️⃣ 長表
+base <- df_single |>
+  pivot_longer(c(borrow_count, net_borrow),
+               names_to = "variable", values_to = "value") |>
+  mutate(is_peak_any = factor(is_peak_any, c(0,1), c("off-peak","peak")))
+
+# 2️⃣ 每面板各自的中心視窗（例：P10~P90）
+rng <- base |>
+  group_by(variable) |>
+  summarise(lo = quantile(value, 0.05, na.rm = TRUE),
+            hi = quantile(value, 0.95, na.rm = TRUE),
+            .groups = "drop")
+
+base_zoom <- base |>
+  inner_join(rng, by = "variable") |>
+  filter(value >= lo, value <= hi)
+
+# 3️⃣ 用全資料計算中位數
+meds <- base |>
+  group_by(variable, is_peak_any) |>
+  summarise(median_val = median(value, na.rm = TRUE), .groups = "drop")
+
+# 4️⃣ 繪圖：放大 + 中位數虛線 + 中位數標籤
+ggplot(base_zoom, aes(x = value, fill = is_peak_any)) +
+  geom_density(alpha = 0.45, adjust = 1, position = "identity") +
+  geom_vline(data = meds, aes(xintercept = median_val, color = is_peak_any),
+             linetype = "dotdash", linewidth = 0.8, show.legend = FALSE) +
+  geom_text(data = meds,
+            aes(x = median_val, y = 0,
+                label = paste0("median=", round(median_val, 1)),
+                color = is_peak_any),
+            angle = 90, vjust = -0.6, size = 3, show.legend = FALSE) +
+  facet_wrap(~ variable, scales = "free_x",
+             labeller = as_labeller(c(
+               borrow_count = "borrow_count",
+               net_borrow = "net_borrow"
+             ))) +
+  scale_fill_manual(values = c("gray70", "firebrick"), name = "is_peak_any") +
+  scale_color_manual(values = c("gray40", "firebrick")) +
+  labs(
+    title = " peak vs off-peak hours",
+    x = NULL, y = "Density"
+  ) +
+  theme_minimal(base_size = 15)
+
+
+```
+
+# 各種天氣情形的樣本分佈
+```{r , echo=FALSE}
+library(ggplot2)
+
+df_merged$rainfall[is.na(df_merged$rainfall)] <- 0
+df_merged$rainfall <- as.numeric(df_merged$rainfall)
+ggplot(df_merged, aes(x = rainfall)) +
+  geom_histogram(bins = 30, fill = "steelblue")
+
+df_merged$temperature <- as.numeric(df_merged$temperature)
+ggplot(df_merged, aes(x = temperature)) +
+  geom_histogram(bins = 30, fill = "steelblue")
+
+df_merged$wind_speed <- as.numeric(df_merged$wind_speed)
+ggplot(df_merged, aes(x = wind_speed)) +
+  geom_histogram(bins = 30, fill = "steelblue")
+
+
+
+```
+
+# (1)是否降雨：>0mm 
+
+# (2)是否高溫：>25℃
+
+# (3)是否強風：>3m/s
+```{r, echo=FALSE}
+
+#分組設定dummy variable
+df_merged <- df_merged %>%
+  mutate(
+    rain_any     = as.integer(rainfall > 0),   # 有下雨 = 1（無 = 0）
+    temp_hot     = as.integer(temperature > 25),     # 熱天（>25℃） = 1
+    wind_strong  = as.integer(wind_speed > 3)     # 風大（>3m/s） = 1
+  )
+
+df_merged %>%
+  group_by(rain_any) %>%
+  summarise(
+    median_borrow = median(borrow_count),
+    n = n() 
+  )
+
+df_merged %>%
+  group_by(temp_hot) %>%
+  summarise(
+    median_borrow = median(borrow_count),
+    n = n()
+  )
+
+df_merged %>%
+  group_by(wind_strong) %>%
+  summarise(
+    median_borrow = median(borrow_count),
+    n = n()
+  )
+
+
+# 計算各組的中位數
+medr <- df_merged %>%
+  group_by(rain_any) %>%
+  summarise(med = median(borrow_count, na.rm = TRUE))
+
+medt <- df_merged %>%
+  group_by(temp_hot) %>%
+  summarise(med = median(borrow_count, na.rm = TRUE))
+
+medw <- df_merged %>%
+  group_by(wind_strong) %>%
+  summarise(med = median(borrow_count, na.rm = TRUE))
+
+# 畫密度圖 + 中位數虛線（加寬）
+ggplot(df_merged, aes(x = borrow_count, fill = factor(rain_any))) +
+  geom_density(alpha = 0.5) +
+  geom_vline(data = medr, aes(xintercept = med, color = factor(rain_any)),
+             linetype = "dashed", size = 1.2, show.legend = FALSE) +
+  labs(title = "borrow_count vs is_rain", fill = "is_rain") +
+  scale_x_continuous(breaks = seq(0, 150, 10), limits = c(0, 50)) +
+  coord_cartesian(ylim = c(0, 0.1)) +
+  theme_minimal()
+
+ggplot(df_merged, aes(x = borrow_count, fill = factor(temp_hot))) +
+  geom_density(alpha = 0.5) +
+  geom_vline(data = medt, aes(xintercept = med, color = factor(temp_hot)),
+             linetype = "dashed", size = 1.2, show.legend = FALSE) +
+  labs(title = "borrow_count vs is_temp_hot", fill = "is_temp_hot") +
+  scale_x_continuous(breaks = seq(0, 150, 10), limits = c(0, 50)) +
+  coord_cartesian(ylim = c(0, 0.1)) +
+  theme_minimal()
+
+ggplot(df_merged, aes(x = borrow_count, fill = factor(wind_strong))) +
+  geom_density(alpha = 0.5) +
+  geom_vline(data = medw, aes(xintercept = med, color = factor(wind_strong)),
+             linetype = "dashed", size = 1.2, show.legend = FALSE) +
+  labs(title = "borrow_count vs is_wind_strong", fill = "is_wind_strong") +
+  scale_x_continuous(breaks = seq(0, 150, 10), limits = c(0, 50)) +
+  coord_cartesian(ylim = c(0, 0.1)) +
+  theme_minimal()
+```
+
+
+# 4.預測模型. 
+
+# 使用Random Forest 模型
+# 分別預測10個站點各自的還車量與借車量 
+# 共訓練了20個模型 
+
+
+
+```{r}
+
+df_merged <- read_csv("df_merged.csv")
+
+set.seed(42)
+# ==== 基本設定 ====
+dt <- as.data.table(df_merged)
+targets      <- c("borrow_count", "return_count")
+exclude_cols <- c("station","date","hour", targets)
+features     <- setdiff(names(dt), exclude_cols)
+K <- 5  # blocked 5-fold，每折測試 20%
+
+
+# 字串轉因子（一次處理）
+for (nm in features) if (is.character(dt[[nm]])) dt[, (nm) := as.factor(get(nm))]
+
+stations <- unique(dt$station)
+
+# ==== 主程式：僅計算 pooled 指標 ====
+out_list <- list()
+
+for (st in stations) {
+  d <- dt[station == st][order(date, hour)]
+  n <- nrow(d)
+  if (n < 80) next  # 測試集要有 20% 的量
+
+  # 5 個連續測試區段
+  cuts <- floor(n * (0:K) / K)
+  test_ranges <- lapply(seq_len(K), function(i) c(cuts[i] + 1L, if (i < K) cuts[i+1L] else n))
+
+  for (y in targets) {
+    fml <- as.formula(paste(y, "~", paste(features, collapse = " + ")))
+
+    # 累計器（只為 pooled 指標）
+    sse_total <- 0
+    sae_total <- 0
+    test_amount <- 0
+    sum_y  <- 0
+    sum_y2 <- 0
+
+    for (i in seq_len(K)) {
+      te_st <- test_ranges[[i]][1]
+      te_en <- test_ranges[[i]][2]
+      te_idx <- te_st:te_en
+      tr_idx <- setdiff(seq_len(n), te_idx)
+      if (length(te_idx) < 5 || length(tr_idx) < 10) next
+
+      tr <- d[tr_idx]
+      te <- d[te_idx]
+
+      rf <- ranger(
+        formula     = fml,
+        data        = tr,
+        num.trees   = 1000,           # 較快、CV 夠用
+        importance  = "none",
+        num.threads = 0,             # 用滿 CPU
+        respect.unordered.factors = "order",
+        seed        = 42 + i
+      )
+
+      pred <- predict(rf, te)$predictions
+      y_te <- te[[y]]
+
+      err <- y_te - pred
+      sse_total    <- sse_total + sum(err^2)
+      sae_total    <- sae_total + sum(abs(err))
+      test_amount <- test_amount + length(y_te)
+      sum_y        <- sum_y + sum(y_te)
+      sum_y2       <- sum_y2 + sum(y_te^2)
+    }
+
+    if (test_amount > 0) {
+      ybar_all  <- sum_y / test_amount
+      tss_total <- sum_y2 - test_amount * (ybar_all^2)
+      R2    <- if (tss_total > 0) 1 - (sse_total / tss_total) else NA_real_
+      RMSE  <- sqrt(sse_total / test_amount)
+      MAE <- sae_total / test_amount
+    } else {
+      R2 <- RMSE <- MAE <- NA_real_
+    }
+
+    out_list[[paste(st, y, sep = " :: ")]] <- data.table(
+      station = st, target = y,
+      RMSE = RMSE,
+      MAE = MAE,
+      R2 = R2,
+      test_amount = test_amount
+    )
+  }
+}
+
+
+metrics_summary_min <- rbindlist(out_list, use.names = TRUE, fill = TRUE)
+df_metrics <- as.data.frame(metrics_summary_min)
+print(df_metrics)
+```
+
+# 5.驗證. 
+# 使用cross validation ,K-fold K=5 
+# 每個fold將資料全部的2成用來test，8成用來train
+
+```{r, echo=FALSE}
+# 合併所有結果
+df_metrics <- df_metrics %>%
+  select(-test_amount)
+print(df_metrics)
+```
+  
+# 6. 觀察
+
+# 就觀察 R² 而言，有的站預測很好有的很差  
+# 低 R² 的站總車位數小，基礎借還車流量小，流量在不同時間的變化也很小  
+# 雖然預測不準，但預測值與實際值的誤差可能不大
+
+```{r, echo=FALSE}
+# 合併所有結果
+
+df_metrics <- df_metrics %>%
+  left_join(
+    df_merged %>% select(station, total) %>% distinct(station, .keep_all = TRUE),
+    by = "station"
+  ) %>%
+  select(-RMSE, -MAE)
+
+print(df_metrics)
+```
+
+  
+  
+# 7.結論. 
+
+# (1) 不需要預測淨流量 
+
+# (2) R² 很低的站依然值得預測
