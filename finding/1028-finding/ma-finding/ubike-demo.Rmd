@@ -1,0 +1,311 @@
+---
+title: "Your Report"
+output:
+  pdf_document:
+    latex_engine: xelatex
+---
+```{r}
+library(dplyr)
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(tibble)
+library(purrr)
+library(randomForest)
+library(lubridate)
+
+```
+
+read
+```{r}
+df_weather <- read_csv("weather2024_3-5.csv")
+df_stat_info<- read_csv("資科期末_data/ntu_area_ubike_stations_sorted.csv")
+df_stat_flow_m3<- read_csv("資科期末_data/station_flow_202403_new.csv")
+df_stat_flow_m4<- read_csv("資科期末_data/station_flow_202404_new.csv")
+df_stat_flow_m5<- read_csv("資科期末_data/station_flow_202405_new.csv")
+
+```
+
+只抓前十個站 
+```{r}
+
+df_stat_flow_m3 <- df_stat_flow_m3[df_stat_flow_m3$station %in% unique(df_stat_flow_m3$station)[1:10], ]
+unique(df_stat_flow_m3$station)
+
+df_stat_flow_m4 <- df_stat_flow_m4[df_stat_flow_m4$station %in% unique(df_stat_flow_m4$station)[1:10], ]
+unique(df_stat_flow_m4$station)
+
+df_stat_flow_m5 <- df_stat_flow_m5[df_stat_flow_m5$station %in% unique(df_stat_flow_m5$station)[1:10], ]
+unique(df_stat_flow_m5$station)
+
+df_stat_info <- df_stat_info[df_stat_info$sna %in% unique(df_stat_info$sna)[1:10], ]
+df_stat_info$sna <- gsub("^YouBike2\\.0_", "", df_stat_info$sna)
+unique(df_stat_info$sna)
+```
+
+合併資料
+```{r}
+
+df_all <- bind_rows(df_stat_flow_m3, df_stat_flow_m4, df_stat_flow_m5) %>%
+  arrange(station, date, hour)
+
+glimpse(df_all)
+unique(df_all$station)
+
+
+
+# 假設兩邊的日期與時間欄位名稱如下：
+# df_all$date   <->  df_weather$日期
+# df_all$hour   <->  df_weather$觀測時間(hour)
+
+df_merged <- df_all %>%
+  left_join(df_weather, by = c("date" = "日期", "hour" = "觀測時間(hour)"))
+df_merged$`Unnamed: 0` <- NULL
+
+# Simple and quick
+df_merged <- na.omit(df_merged)
+
+
+```
+新增三項時間特徵變數與淨借車
+```{r}
+
+df_merged <- df_merged %>%
+  mutate(
+    # 確保 date 為 Date 格式、hour 為整數
+    date = as_date(date),
+    hour = as.integer(hour),
+
+    # ---- 尖峰時段旗標 ----
+    peak_hour = as.integer(hour %in% c(8, 9, 17, 18)),
+
+
+    # ---- 深夜時段 ----
+    night = as.integer(hour %in% c(0:5, 23)),
+    
+    # ---- 淨借車量 ----
+    net_borrow = borrow_count - return_count
+  )
+
+
+df_merged$`最大瞬間風風向(360degree)` <- NULL
+df_merged$`風向(360degree)` <- NULL
+df_merged$`露點溫度(℃)` <- NULL
+df_merged$`海平面氣壓(hPa)` <- NULL 
+df_merged$`降水量(mm)`[df_merged$`降水量(mm)` == "T"] <- 0
+
+
+
+
+
+```
+
+```{r}
+
+
+library(dplyr)
+
+df_merged <- df_merged %>%
+  rename(
+    station_pressure   = `測站氣壓(hPa)`,
+    temperature        = `氣溫(℃)`,
+    humidity           = `相對溼度(%)`,
+    wind_speed         = `風速(m/s)`,
+    max_wind_speed     = `最大瞬間風(m/s)`,
+    rainfall           = `降水量(mm)`,
+    rain_duration      = `降水時數(h)`,
+    solar_radiation    = `全天空日射量(MJ/㎡)`,
+    uv_index           = 紫外線指數
+  )
+
+```
+
+```{r}
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# 🚉 篩選單一站點
+df_single <- df_merged %>%
+  filter(station == "捷運公館站(2號出口)")
+
+# 1️⃣ 長表
+base <- df_single |>
+  pivot_longer(c(borrow_count, net_borrow),
+               names_to = "variable", values_to = "value") |>
+  mutate(peak_hour = factor(peak_hour, c(0,1), c("off-peak","peak")))
+
+# 2️⃣ 每面板各自的中心視窗（例：P10~P90）
+rng <- base |>
+  group_by(variable) |>
+  summarise(lo = quantile(value, 0.05, na.rm = TRUE),
+            hi = quantile(value, 0.95, na.rm = TRUE),
+            .groups = "drop")
+
+base_zoom <- base |>
+  inner_join(rng, by = "variable") |>
+  filter(value >= lo, value <= hi)
+
+# 3️⃣ 用全資料計算中位數
+meds <- base |>
+  group_by(variable, peak_hour) |>
+  summarise(median_val = median(value, na.rm = TRUE), .groups = "drop")
+
+# 4️⃣ 繪圖：放大 + 中位數虛線 + 中位數標籤
+ggplot(base_zoom, aes(x = value, fill = peak_hour)) +
+  geom_density(alpha = 0.45, adjust = 1, position = "identity") +
+  geom_vline(data = meds, aes(xintercept = median_val, color = peak_hour),
+             linetype = "dotdash", linewidth = 0.8, show.legend = FALSE) +
+  geom_text(data = meds,
+            aes(x = median_val, y = 0,
+                label = paste0("median=", round(median_val, 1)),
+                color = peak_hour),
+            angle = 90, vjust = -0.6, size = 3, show.legend = FALSE) +
+  facet_wrap(~ variable, scales = "free_x",
+             labeller = as_labeller(c(
+               borrow_count = "borrow_count",
+               net_borrow = "net_borrow"
+             ))) +
+  scale_fill_manual(values = c("gray70", "firebrick"), name = "peak_hour") +
+  scale_color_manual(values = c("gray40", "firebrick")) +
+  labs(
+    title = "捷運公館站(2號出口) — peak vs off-peak hours",
+    x = NULL, y = "Density"
+  ) +
+  theme_minimal(base_size = 15)
+
+
+```
+```{r}
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# 🚉 先篩選指定站名
+df_single <- df_merged %>%
+  filter(station == "捷運公館站(2號出口)")
+
+# 1️⃣ 長表
+base <- df_single |>
+  pivot_longer(c(borrow_count, net_borrow),
+               names_to = "variable", values_to = "value") |>
+  mutate(weekend = factor(weekend, c(0,1), c("weekday","weekend")))
+
+# 2️⃣ 每面板各自的中心視窗（例：P10~P90）
+rng <- base |>
+  group_by(variable) |>
+  summarise(lo = quantile(value, 0.05, na.rm = TRUE),
+            hi = quantile(value, 0.95, na.rm = TRUE),
+            .groups = "drop")
+
+base_zoom <- base |>
+  inner_join(rng, by = "variable") |>
+  filter(value >= lo, value <= hi)
+
+# 3️⃣ 「用全資料」計算中位數（推薦）
+meds <- base |>
+  group_by(variable, weekend) |>
+  summarise(median_val = median(value, na.rm = TRUE), .groups = "drop")
+
+# 4️⃣ 繪圖：放大 + 中位數虛線 + 中位數標籤
+ggplot(base_zoom, aes(x = value, fill = weekend)) +
+  geom_density(alpha = 0.45, adjust = 1, position = "identity") +
+  geom_vline(data = meds, aes(xintercept = median_val, color = weekend),
+             linetype = "dotdash", linewidth = 0.8, show.legend = FALSE) +
+  geom_text(data = meds,
+            aes(x = median_val, y = 0,
+                label = paste0("median=", round(median_val, 1)),
+                color = weekend),
+            angle = 90, vjust = -0.6, size = 3, show.legend = FALSE) +
+  facet_wrap(~ variable, scales = "free_x",
+             labeller = as_labeller(c(
+               borrow_count = "borrow_count",
+               net_borrow = "net_borrow"
+             ))) +
+  scale_fill_manual(values = c("gray70", "firebrick"), name = "weekend") +
+  scale_color_manual(values = c("gray40", "firebrick")) +
+  labs(
+    title = "捷運公館站(2號出口) — weekend vs weekday",
+    x = NULL, y = "Density"
+  ) +
+  theme_minimal(base_size = 15)
+
+
+```
+
+
+rf model
+
+```{r}
+
+
+
+
+library(data.table)
+library(ranger)
+library(caret)     # 這裡只拿來算 R^2 / RMSE（也可不用）
+
+set.seed(42)
+
+#--- 0) 準備 ----
+dt <- as.data.table(df_merged)   # 你的資料
+targets      <- c("borrow_count", "net_borrow")
+exclude_cols <- c("station","date","hour", targets)
+features     <- setdiff(names(dt), exclude_cols)
+
+stations <- unique(dt$station)   # 10 個站
+
+# 放結果
+model_list  <- list()
+metrics_dt  <- list()
+
+#--- 1) 逐站 × 逐目標 ----
+for (st in stations) {
+  d <- dt[station == st][order(date, hour)]
+  n <- nrow(d); if (n < 50) next
+  n_tr <- floor(0.8 * n)
+
+  tr <- d[1:n_tr]
+  te <- d[(n_tr+1):n]
+
+  for (y in targets) {
+    fml <- as.formula(paste(y, "~", paste(features, collapse = " + ")))
+
+    rf <- ranger(
+      formula     = fml,
+      data        = tr,
+      num.trees   = 1000,           # 你 example 的設定；要更穩可拉到 500-1000
+      importance  = "impurity",
+      num.threads = 0,             # 0=用滿 CPU
+      seed        = 42
+    )
+
+    # 預測 + 指標
+    pred <- predict(rf, te)$predictions
+    y_te <- te[[y]]
+    rmse <- sqrt(mean((pred - y_te)^2))
+    mae  <- mean(abs(pred - y_te))
+    r2   <- caret::postResample(pred = pred, obs = y_te)[["Rsquared"]]
+
+    key <- paste(st, y, sep = " :: ")
+    model_list[[key]] <- rf
+
+    # 存檔（將站名中的特殊字元改成底線）
+    fn <- paste0("rf_", y, "_", gsub("[^\\w]+", "_", st), ".rds")
+    saveRDS(rf, fn)
+
+    metrics_dt[[key]] <- data.table(
+      station = st, target = y, n_train = n_tr, n_test = n - n_tr,
+      RMSE = rmse, MAE = mae, R2 = r2
+    )
+  }
+}
+
+metrics <- rbindlist(metrics_dt)
+print(metrics[])
+
+
+
+```

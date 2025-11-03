@@ -5,7 +5,7 @@ This directory contains YouBike data processing pipeline for NTU area analysis.
 
 ## Directory Structure
 
-### 📁 `/raw/` - Raw Data Files
+###  `/raw/` - Raw Data Files
 | File Name | Description | Size | Period | Content |
 |-----------|-------------|------|--------|---------|
 | `202403_YouBike.csv` | Raw YouBike data | ~200MB+ | March 2024 | Original YouBike transaction records |
@@ -32,9 +32,9 @@ This directory contains YouBike data processing pipeline for NTU area analysis.
 |-----------------|-------------|-----------------|-------------|----------------|-----------|------|
 | 2025-01-13 15:00:00 | 捷運古亭站(8號出口) | 2025-01-13 21:00:00 | 新生南路三段52號前 | 05:34:25 | 電輔車 | 2025-01-13 |
 
-### 📁 `/processed/` - Processed Data Files
+###  `/processed/` - Processed Data Files
 
-#### 🚴‍♂️ NTU YouBike Data (`/ntu_youbike_data/`)
+####  NTU YouBike Data (`/ntu_youbike_data/`)
 | File Name | Description | Records | Period | Content |
 |-----------|-------------|---------|--------|---------|
 | `ntu_youbike_data_202403.csv` | NTU filtered data | ~400K+ | March 2024 | NTU-related YouBike transactions |
@@ -47,7 +47,7 @@ This directory contains YouBike data processing pipeline for NTU area analysis.
 | `ntu_youbike_data_202412.csv` | NTU filtered data | ~400K+ | December 2024 | NTU-related YouBike transactions |
 | `ntu_youbike_data_202501.csv` | NTU filtered data | ~400K+ | January 2025 | NTU-related YouBike transactions |
 
-#### 📊 Station Flow Analysis (`/station_flow/`)
+####  Station Flow Analysis (`/station_flow/`)
 | File Name | Description | Records | Period | Content |
 |-----------|-------------|---------|--------|---------|
 | `station_flow_202403.csv` | Hourly flow data | ~40K+ | March 2024 | Station × Date × Hour flow matrix |
@@ -72,7 +72,7 @@ This directory contains YouBike data processing pipeline for NTU area analysis.
 |---------|------|------|--------------|--------------|
 | 基隆長興路口 | 2025-01-01 | 1 | 6.0 | 4.0 |
 
-#### 🏢 Station Information
+####  Station Information
 | File Name | Description | Records | Content |
 |-----------|-------------|---------|---------|
 | `ntu_area_ubike_stations_new.csv` | NTU station info | 73 | Station details with coordinates and capacity |
@@ -108,14 +108,14 @@ This directory contains YouBike data processing pipeline for NTU area analysis.
 |--------|-------------|-------------|--------------|------------|-----------------|
 | YouBike2.0_辛亥復興路口西北側 | YouBike2.0_新生南路三段52號前 | 1.143 | 4.3 | 500101005.0 | 500101008.0 |
 
-### 📁 `/code/` - Processing Scripts
+###  `/code/` - Processing Scripts
 | File Name | Description | Purpose |
 |-----------|-------------|---------|
 | `processing_data.py` | Main processing script | Data filtering and flow analysis |
 | `merge_ntu_station_and_total.py` | Station merging script | Combine station data |
 | `make_file.py` | File generation script | Create processed files |
 
-### 📁 `/temp/` - Temporary Files
+###  `/temp/` - Temporary Files
 Empty directory for temporary processing files.
 
 ## Data Processing Pipeline
