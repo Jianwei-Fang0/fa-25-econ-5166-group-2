@@ -177,11 +177,12 @@ ggplot(base_zoom, aes(x = value, fill = peak_hour)) +
 
 
 ```
-統計降水量、氣溫、風速分佈
+##統計降水量、氣溫、風速分佈##
 ```{r}
 library(ggplot2)
 
-df_merged$rainfall[is.na(df_merged$rainfall)] <- 0
+#各組先轉數字再統計各區間的數值有多少個
+df_merged$rainfall[is.na(df_merged$rainfall)] <- 0 #NA值補0
 df_merged$rainfall <- as.numeric(df_merged$rainfall)
 ggplot(df_merged, aes(x = rainfall)) +
   geom_histogram(bins = 30, fill = "steelblue")
@@ -199,10 +200,12 @@ summary(df_merged$temperature)
 summary(df_merged$wind_speed)
 
 ```
-設定dummy variable + 畫密度圖
+
+##設定dummy variable + 畫密度圖##
 ```{r}
 
-#分組設定dummy variable
+#依統計分佈圖分組設定dummy variable(約取Q3數值作為分界)
+#雨量以0(mm)為分界，>0有雨，dummy variable = 1，<=0無雨，dummy variable = 0；溫度以25(℃))為分界，>25高溫，dummy variable = 1，<=25低溫，dummy variable = 0；風速以3(m/s)為分界，>3強風，dummy variable = 1，<=3弱風，dummy variable = 0。
 df_merged <- df_merged %>%
   mutate(
     rain_any     = as.integer(rainfall > 0),   # 有下雨 = 1（無 = 0）
@@ -216,14 +219,12 @@ df_merged %>%
     median_borrow = median(borrow_count),
     n = n() 
   )
-
 df_merged %>%
   group_by(temp_hot) %>%
   summarise(
     median_borrow = median(borrow_count),
     n = n()
   )
-
 df_merged %>%
   group_by(wind_strong) %>%
   summarise(
@@ -231,21 +232,20 @@ df_merged %>%
     n = n()
   )
 
-
 # 計算各組的中位數
-medr <- df_merged %>%
+medr <- df_merged %>% #雨量中位數
   group_by(rain_any) %>%
   summarise(med = median(borrow_count, na.rm = TRUE))
 
-medt <- df_merged %>%
+medt <- df_merged %>% #溫度中位數
   group_by(temp_hot) %>%
   summarise(med = median(borrow_count, na.rm = TRUE))
 
-medw <- df_merged %>%
+medw <- df_merged %>% #風速中位數
   group_by(wind_strong) %>%
   summarise(med = median(borrow_count, na.rm = TRUE))
 
-# 畫密度圖 + 中位數虛線（加寬）
+# 畫密度圖 + 中位數虛線
 ggplot(df_merged, aes(x = borrow_count, fill = factor(rain_any))) +
   geom_density(alpha = 0.5) +
   geom_vline(data = medr, aes(xintercept = med, color = factor(rain_any)),
