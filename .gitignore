@@ -4,9 +4,12 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 
+
+
 # Ignore raw and processed data folders
 data/raw/
 data\\processed\\processed_code
+
 
 # User-specific files
 *.rsuser
