@@ -119,7 +119,7 @@ ggplot(df_merged, aes(x = temperature)) +
 
 df_merged$wind_speed <- as.numeric(df_merged$wind_speed)
 ggplot(df_merged, aes(x = wind_speed)) +
-  geom_histogram(bins = 30, fill = "steelblue")
+  geom_histogram(bins = 30, fil0l = "steelblue")
 
 
 
