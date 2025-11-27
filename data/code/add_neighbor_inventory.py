@@ -1,8 +1,8 @@
 import pandas as pd
 
-FLOW_PATH = "data\\processed\\station_flow\\station_flow_202403_with_inventory.csv"
+FLOW_PATH = "data\\processed\\station_flow\\station_flow_202501_new.csv"
 ROUTES_PATH = "data\\processed\\ntu_youbike_data\\routes_with_sno_clean.csv"
-OUTPUT_PATH = "data\\processed\\station_flow\\station_flow_202403_with_neighbor_inventory.csv"
+OUTPUT_PATH = "data\\processed\\station_flow\\station_flow_202501_new.csv"
 DISTANCE_THRESHOLD_KM = 0.4
 
 
@@ -21,11 +21,11 @@ def build_neighbor_edges(routes: pd.DataFrame, threshold_km: float) -> pd.DataFr
     routes["destination"] = routes["destination"].apply(clean_station_name)
 
     close_routes = routes[routes["distance_km"] <= threshold_km]
-    print(
-        f"[INFO] Found {len(close_routes)} origin-destination pairs within {threshold_km * 1000:.0f}m"
-    )
-    print("[INFO] Sample pairs:")
-    print(close_routes[["origin", "destination", "distance_km"]].head())
+    # print(
+    #     f"[INFO] Found {len(close_routes)} origin-destination pairs within {threshold_km * 1000:.0f}m"
+    # )
+    # print("[INFO] Sample pairs:")
+    # print(close_routes[["origin", "destination", "distance_km"]].head())
     
     edges = close_routes[["origin", "destination"]].rename(
         columns={"origin": "station", "destination": "neighbor"}
@@ -43,10 +43,10 @@ def build_neighbor_edges(routes: pd.DataFrame, threshold_km: float) -> pd.DataFr
     for idx, station in enumerate(unique_stations, start=1):
         neighbors = combined.loc[combined["station"] == station, "neighbor"].tolist()
         neighbor_list = ", ".join(neighbors)
-        print(
-            f"[INFO] Station {idx}/{len(unique_stations)} ({station}) has "
-            f"{len(neighbors)} neighbors within {threshold_km * 1000:.0f}m: {neighbor_list}"
-        )
+        # print(
+        #     f"[INFO] Station {idx}/{len(unique_stations)} ({station}) has "
+        #     f"{len(neighbors)} neighbors within {threshold_km * 1000:.0f}m: {neighbor_list}"
+        # )
 
     return combined
 
