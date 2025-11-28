@@ -1,0 +1,249 @@
+---
+title: "Econometrics Midterm Answer Sheet"
+author: "Yi-Jie, Wu"
+date: "2025-04-03"
+output:
+  pdf_document:
+    latex_engine: xelatex
+header-includes:
+- \usepackage{xeCJK}
+- \setCJKmainfont{冬青黑體繁體中文}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+data pre process
+```{r}
+# =========================
+# 0) Libraries
+# =========================
+library(dplyr)
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(tibble)
+library(purrr)
+library(randomForest)
+library(lubridate)
+
+# =========================
+# 1) Read data
+# =========================
+df_weather     <- read_csv("weather2024_3-5.csv")
+df_stat_info   <- read_csv("資科期末_data/ntu_area_ubike_stations_sorted.csv")
+df_stat_flow_m3<- read_csv("資科期末_data/station_flow_202403_new.csv")
+df_stat_flow_m4<- read_csv("資科期末_data/station_flow_202404_new.csv")
+df_stat_flow_m5<- read_csv("資科期末_data/station_flow_202405_new.csv")
+
+# =========================
+# 2) 只抓前 10 個站 (flow 與 info 同步)
+# =========================
+df_stat_flow_m3 <- df_stat_flow_m3[df_stat_flow_m3$station %in% unique(df_stat_flow_m3$station)[1:10], ]
+df_stat_flow_m4 <- df_stat_flow_m4[df_stat_flow_m4$station %in% unique(df_stat_flow_m4$station)[1:10], ]
+df_stat_flow_m5 <- df_stat_flow_m5[df_stat_flow_m5$station %in% unique(df_stat_flow_m5$station)[1:10], ]
+
+df_stat_info <- df_stat_info[df_stat_info$sna %in% unique(df_stat_info$sna)[1:10], ]
+df_stat_info$sna <- gsub("^YouBike2\\.0_", "", df_stat_info$sna)
+
+# =========================
+# 3) 合併三個月份的 flow
+# =========================
+df_all <- bind_rows(df_stat_flow_m3, df_stat_flow_m4, df_stat_flow_m5) %>%
+  arrange(station, date, hour)
+
+# =========================
+# 4) 併上天氣（處理 24 點 → 0 點後對齊）
+# =========================
+df_weather$`觀測時間(hour)`[ df_weather$`觀測時間(hour)` == 24 ] <- 0
+
+df_merged <- df_all %>%
+  left_join(df_weather, by = c("date" = "日期", "hour" = "觀測時間(hour)")) %>%
+  select(-`Unnamed: 0`) %>%
+  left_join(df_stat_info, by = c("station" = "sna"))
+
+# =========================
+# 5) 簡單缺值處理與刪除不需要的欄位（站點靜態欄）
+# =========================
+df_merged <- df_merged %>%
+  tidyr::drop_na() %>%
+  select(-c(sno, sarea, latitude, longitude, ar, sareaen, aren, act))
+
+# =========================
+# 6) 新增三項時間特徵與淨借車量
+# =========================
+# -- 6.1 官方假日與補班日（請依需要補齊）
+tw_holidays <- as_date(c(
+  "2024-01-01",
+  "2024-02-08","2024-02-09","2024-02-12","2024-02-13","2024-02-14",
+  "2024-02-28",
+  "2024-04-04","2024-04-05",
+  "2024-06-10",
+  "2024-09-17",
+  "2024-10-10"
+))
+
+tw_makeup_workdays <- as_date(c(
+  "2024-02-17", "2024-09-14"
+))
+
+# -- 6.2 產生時間特徵與 net_borrow
+df_merged <- df_merged %>%
+  mutate(
+    date = as_date(date),
+    hour = as.integer(hour),
+
+    # 週/月/年內日
+    wday_num = as.integer(strftime(date, "%u")),   # 1=Mon ... 7=Sun
+    is_weekend = wday_num >= 6L,
+    week  = isoweek(date),
+    month = month(date),
+    yday  = yday(date),
+
+    # 假日/補班
+    is_official_holiday = date %in% tw_holidays,
+    is_makeup_workday   = date %in% tw_makeup_workdays,
+    is_holiday_taipei   = (is_weekend | is_official_holiday) & !is_makeup_workday,
+    is_holiday_eve      = (date + days(1)) %in% tw_holidays,
+
+    # 尖峰
+    is_peak_morning = if_else(is_holiday_taipei, hour %in% 8:9, hour %in% 7:8),
+    is_peak_evening = hour %in% 17:19,
+    is_peak_any     = is_peak_morning | is_peak_evening,
+    is_peak_noon    = hour %in% 12,
+
+    # 深夜
+    night = as.integer(hour %in% c(0:5, 23)),
+
+    # 淨借車
+    net_borrow = borrow_count - return_count
+  ) %>%
+  # -- 6.3 刪除中介欄位與不需要欄
+  select(-c(wday_num, is_weekend, week, month, yday,
+            is_official_holiday, is_makeup_workday, is_holiday_eve)) %>%
+  select(-c(`最大瞬間風風向(360degree)`,
+            `風向(360degree)`,
+            `露點溫度(℃)`,
+            `海平面氣壓(hPa)`))
+
+# -- 6.4 降水量 "T" → 0
+df_merged$`降水量(mm)`[ df_merged$`降水量(mm)` == "T" ] <- 0
+
+# =========================
+# 7) 統一變數命名（最後一步）
+# =========================
+df_merged <- df_merged %>%
+  rename(
+    station_pressure = `測站氣壓(hPa)`,
+    temperature      = `氣溫(℃)`,
+    humidity         = `相對溼度(%)`,
+    wind_speed       = `風速(m/s)`,
+    max_wind_speed   = `最大瞬間風(m/s)`,
+    rainfall         = `降水量(mm)`,
+    rain_duration    = `降水時數(h)`,
+    solar_radiation  = `全天空日射量(MJ/㎡)`,
+    uv_index         = 紫外線指數
+  )
+
+
+readr::write_csv(df_merged, "df_merged.csv")
+```
+
+
+
+run RF model with cross validation(5-fold)
+```{r}
+library(data.table)
+library(ranger)
+set.seed(42)
+
+# ==== 基本設定 ====
+dt <- as.data.table(df_merged)
+targets      <- c("borrow_count", "return_count")
+exclude_cols <- c("station","date","hour", targets)
+features     <- setdiff(names(dt), exclude_cols)
+K <- 5  # blocked 5-fold，每折測試 20%
+
+
+# 字串轉因子（一次處理）
+for (nm in features) if (is.character(dt[[nm]])) dt[, (nm) := as.factor(get(nm))]
+
+stations <- unique(dt$station)
+
+# ==== 主程式：僅計算 pooled 指標 ====
+out_list <- list()
+
+for (st in stations) {
+  d <- dt[station == st][order(date, hour)]
+  n <- nrow(d)
+  if (n < 80) next  # 測試集要有 20% 的量
+
+  # 5 個連續測試區段
+  cuts <- floor(n * (0:K) / K)
+  test_ranges <- lapply(seq_len(K), function(i) c(cuts[i] + 1L, if (i < K) cuts[i+1L] else n))
+
+  for (y in targets) {
+    fml <- as.formula(paste(y, "~", paste(features, collapse = " + ")))
+
+    # 累計器（只為 pooled 指標）
+    sse_total <- 0
+    sae_total <- 0
+    n_test_total <- 0
+    sum_y  <- 0
+    sum_y2 <- 0
+
+    for (i in seq_len(K)) {
+      te_st <- test_ranges[[i]][1]
+      te_en <- test_ranges[[i]][2]
+      te_idx <- te_st:te_en
+      tr_idx <- setdiff(seq_len(n), te_idx)
+      if (length(te_idx) < 5 || length(tr_idx) < 10) next
+
+      tr <- d[tr_idx]
+      te <- d[te_idx]
+
+      rf <- ranger(
+        formula     = fml,
+        data        = tr,
+        num.trees   = 1000,           # 較快、CV 夠用
+        importance  = "none",
+        num.threads = 0,             # 用滿 CPU
+        respect.unordered.factors = "order",
+        seed        = 42 + i
+      )
+
+      pred <- predict(rf, te)$predictions
+      y_te <- te[[y]]
+
+      err <- y_te - pred
+      sse_total    <- sse_total + sum(err^2)
+      sae_total    <- sae_total + sum(abs(err))
+      n_test_total <- n_test_total + length(y_te)
+      sum_y        <- sum_y + sum(y_te)
+      sum_y2       <- sum_y2 + sum(y_te^2)
+    }
+
+    if (n_test_total > 0) {
+      ybar_all  <- sum_y / n_test_total
+      tss_total <- sum_y2 - n_test_total * (ybar_all^2)
+      R2_pooled    <- if (tss_total > 0) 1 - (sse_total / tss_total) else NA_real_
+      RMSE_pooled  <- sqrt(sse_total / n_test_total)
+      MAE_weighted <- sae_total / n_test_total
+    } else {
+      R2_pooled <- RMSE_pooled <- MAE_weighted <- NA_real_
+    }
+
+    out_list[[paste(st, y, sep = " :: ")]] <- data.table(
+      station = st, target = y,
+      RMSE_pooled = RMSE_pooled,
+      MAE_weighted = MAE_weighted,
+      R2_pooled = R2_pooled,
+      N_test_total = n_test_total
+    )
+  }
+}
+
+metrics_summary_min <- rbindlist(out_list, use.names = TRUE, fill = TRUE)
+print(metrics_summary_min[])
+
+```
