@@ -1,0 +1,373 @@
+---
+title: "stage2"
+output: html_document
+date: "2025-12-02"
+---
+
+```{r}
+# =========================
+# 0) Libraries
+# =========================
+library(dplyr)
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(tibble)
+library(purrr)
+library(randomForest)
+library(lubridate)
+```
+
+# 目標是預測12月所以先創建12月資料
+```{r}
+# =========================
+# A) Clean Weather Data
+# =========================
+df_weather <- read_csv("data/new_weather_2024.txt") %>%
+  mutate(
+    `觀測時間(hour)` = if_else(`觀測時間(hour)` == 24, 0, `觀測時間(hour)`),
+    `降水量(mm)` = ifelse(`降水量(mm)` == "T", 0, `降水量(mm)`),
+    `降水量(mm)` = as.numeric(`降水量(mm)`)
+  ) %>%
+  rename(
+    station_pressure = `測站氣壓(hPa)`,
+    temperature      = `氣溫(℃)`,
+    humidity         = `相對溼度(%)`,
+    wind_speed       = `風速(m/s)`,
+    max_wind_speed   = `最大瞬間風(m/s)`,
+    rainfall         = `降水量(mm)`,
+    rain_duration    = `降水時數(h)`,
+    solar_radiation  = `全天空日射量(MJ/㎡)`,
+    uv_index         = 紫外線指數
+  ) %>%
+  select(-c(`最大瞬間風風向(360degree)`,
+            `風向(360degree)`,
+            `露點溫度(℃)`,
+            `海平面氣壓(hPa)`,
+            `總雲量(0~10)`,
+            `能見度(km)`,
+            `日照時數(h)`,
+            `uv_index`,
+            `rain_duration`))
+```
+
+
+
+```{r}
+df_stat_info   <- read_csv("data/ntu_area_ubike_stations_sorted.csv")
+df_stat_flow_m12<- read.csv("data/station_flow_202412_new.txt", sep = ",", header = TRUE)
+df_is_weekday <- read_csv("data/weekday_or_not.csv")
+```
+
+```{r}
+
+# =========================
+# 2) (flow 與 info 同步)
+# =========================
+
+df_stat_info$sna <- gsub("^YouBike2\\.0_", "", df_stat_info$sna)
+
+# =========================
+# 3) 合併六個月份的 flow
+# =========================
+df_stat_flow_m12 <- df_stat_flow_m12
+
+
+df_stat_flow_m12 <- df_stat_flow_m12 %>%
+  left_join(df_stat_info, by = c("station" = "sna"))
+
+
+# =========================
+# 5) 簡單缺值處理與刪除不需要的欄位（站點靜態欄）
+# =========================
+df_stat_flow_m12 <- df_stat_flow_m12 %>%
+  tidyr::drop_na() %>%
+  select(-c(sarea, latitude, longitude, ar, sareaen, aren, act))
+```
+
+```{r}
+# =========================
+# 6) 新增三項時間特徵與淨借車量
+# =========================
+
+df_stat_flow_m12 <- df_stat_flow_m12 %>%
+  mutate(
+    date = as.Date(date),
+    hour = as.integer(hour),
+
+    # 🚇 早晚尖峰
+    is_peak_morning = hour %in% 7:9,     #上班尖峰
+    is_peak_evening = hour %in% 17:19,   #下班尖峰
+    is_peak_noon    = hour == 12,        #中午尖峰(短)
+    is_peak_any     = is_peak_morning | is_peak_evening,
+
+    # 🌙 深夜時段(低需求)
+    is_night = hour %in% c(0:5, 23),
+
+    # 🚲 淨借車量 = 借車 - 還車
+    net_borrow = borrow_count - return_count
+  ) 
+
+
+```
+
+```{r}
+
+# 先把 date 都轉成 Date（用 ymd 可以吃到 2024/3/1 這種格式）
+df_is_weekday <- df_is_weekday %>%
+  mutate(date = ymd(date))
+
+df_weather <- df_weather %>%
+  mutate(日期 = ymd(日期))
+
+df_m12 <- df_stat_flow_m12 %>%
+
+  # 6.1 合併 weekday / holiday 資訊
+  left_join(df_is_weekday, by = "date") %>%   # 會多出 is_weekend, is_holiday
+
+  # 6.2 合併天氣資料（已處理 24→0）
+  left_join(
+    df_weather,
+    by = c("date" = "日期",
+           "hour" = "觀測時間(hour)"))%>%
+  mutate(
+    is_dayoff = is_weekend | is_holiday)
+
+df_m12 <- df_m12 %>% tidyr::drop_na()
+readr::write_csv(df_m12, "df_m12.csv")
+
+
+```
+
+
+# 將3-5月9-11月資料餵進去訓練
+# 看訓練模型對12月的解釋力
+# 同時儲存模型
+# 會跑非常久
+```{r train_and_save_models}
+
+# =========================================
+# C) 分站訓練 + 預測 12 月 + 存模型
+# =========================================
+
+library(data.table)
+library(ranger)
+library(future.apply)
+plan(multisession, workers = parallel::detectCores())
+
+df_merged <- read.csv("df_merged.csv")
+set.seed(42)
+
+dt <- as.data.table(df_merged)
+dt_m12 <- as.data.table(df_m12)
+
+feature_cols <- c(
+  "is_peak_morning","is_peak_evening","is_peak_noon","is_peak_any","is_night",
+  "is_weekend","is_holiday","is_dayoff",
+  "station_pressure","temperature","humidity","wind_speed",
+  "max_wind_speed","rainfall","solar_radiation",
+  "total"
+)
+
+targets <- c("borrow_count","return_count","net_borrow")
+stations <- unique(dt$station)
+
+# === 建立 models 目錄（如果不存在） ===
+if (!dir.exists("models")) dir.create("models")
+
+# === factor ===
+for (nm in feature_cols) {
+  if (is.character(dt[[nm]]))      dt[, (nm) := as.factor(get(nm))]
+  if (is.character(dt_m12[[nm]])) dt_m12[, (nm) := as.factor(get(nm))]
+}
+
+out_dec_list <- list()
+
+for (st in stations) {
+
+  train <- dt[station == st]
+  test  <- dt_m12[station == st]
+
+  if (nrow(train) < 50 || nrow(test) < 3) next
+
+  for (y in targets) {
+
+    train_y <- train[, c(y, feature_cols), with = FALSE]
+    test_y  <- test[,  c(y, feature_cols), with = FALSE]
+
+    fml <- as.formula(paste(y, "~", paste(feature_cols, collapse = " + ")))
+
+    # =====================
+    # 訓練模型
+    # =====================
+    rf <- ranger(
+      formula = fml,
+      data = train_y,
+      num.trees = 800,
+      respect.unordered.factors = "order",
+      seed = 888
+    )
+
+    # ===========================
+    # 儲存模型 (一站 × 一 target)
+    # ===========================
+    model_path <- paste0("models/model_", st, "_", y, ".rds")
+    saveRDS(rf, model_path)
+
+    # =====================
+    # 評估 12 月表現
+    # =====================
+    pred   <- predict(rf, test_y)$predictions
+    y_true <- test_y[[y]]
+
+    err <- y_true - pred
+
+    SSE  <- sum(err^2)
+    TSS  <- sum((y_true - mean(y_true))^2)
+    R2   <- if (TSS > 0) 1 - SSE / TSS else NA
+    RMSE <- sqrt(SSE / length(y_true))
+    MAE  <- mean(abs(err))
+
+    out_dec_list[[paste(st, y, sep=" :: ")]] <- data.table(
+      station = st,
+      target = y,
+      R2_12m  = R2,
+      RMSE_12m = RMSE,
+      MAE_12m = MAE,
+      test_n   = length(y_true),
+      model_path = model_path
+    )
+  }
+}
+
+df_metrics_dec <- rbindlist(out_dec_list, use.names = TRUE, fill = TRUE)
+print(df_metrics_dec)
+
+
+
+```
+
+```{r}
+
+
+write_csv(df_metrics_dec, "R2_m12.csv")
+
+
+```
+
+
+
+# 建立補車策略計算用的資料df_m12_target
+# 資料格式：
+# |station|date|hour|borrow_real|return_real|borrow_pred|return_pred|net_borrow_pred|inventory|total|
+```{r}
+
+
+library(dplyr)
+
+# 先複製一份
+df_m12_target <- df_m12
+
+# 只留下指定欄位，並排序成 sno, station, date, hour
+df_m12_target <- df_m12_target %>%
+  select(sno, station, date, hour, borrow_count, return_count, net_borrow, total)
+
+# 新增預測欄位，預設為 0
+df_m12_target <- df_m12_target %>%
+  mutate(
+    borrow_pred = 0,
+    return_pred = 0, 
+    net_borrow_pred = 0,
+    inventory = total #inventory 預設為total
+  )
+
+# 再確保欄位順序完全是你要的
+df_m12_target <- df_m12_target %>%
+  select(sno, station, date, hour, borrow_count, return_count, net_borrow, borrow_pred, return_pred, net_borrow_pred, inventory, total)
+
+
+```
+
+
+
+
+
+# 餵12月的資料進去得到
+# |borrow_pred|return_pred|net_borrow_pred|
+# 共3個的欄位
+```{r}
+
+#讀取資料df_m12並且輸入進去model
+#並更新在df_m12_target
+
+
+# ======================================================
+# D) 套用模型（分站預測）
+# ======================================================
+
+# feature cols 必須與訓練時一致（不含 target）
+feature_cols <- c(
+  "is_peak_morning","is_peak_evening","is_peak_noon","is_peak_any","is_night",
+  "is_weekend","is_holiday","is_dayoff",
+  "station_pressure","temperature","humidity","wind_speed",
+  "max_wind_speed","rainfall","solar_radiation",
+  "total"
+)
+
+# 將 df_m12 的欄位轉為 data.table，利於切 rows
+dt_m12 <- as.data.table(df_m12)
+
+# 逐站處理
+stations <- unique(df_m12_target$station)
+
+for (st in stations) {
+
+  # 對應的行
+  idx <- which(df_m12_target$station == st)
+  if (length(idx) == 0) next
+
+  # 模型路徑
+  path_b <- paste0("models/model_", st, "_borrow_count.rds")
+
+  path_r <- paste0("models/model_", st, "_return_count.rds")
+  
+  path_n <- paste0("models/model_", st, "_net_borrow.rds")
+
+  if (!file.exists(path_b) || !file.exists(path_r)) next
+
+  model_b <- readRDS(path_b)
+
+
+  model_r <- readRDS(path_r)
+  
+  model_n <- readRDS(path_n)
+
+  # 取出該站所有 rows 的(features)
+  new_x <- dt_m12[idx, ..feature_cols]
+
+  # 逐欄預測
+  pred_b <- predict(model_b, new_x)$predictions
+  pred_r <- predict(model_r, new_x)$predictions
+
+  pred_n <- predict(model_n, new_x)$predictions
+  # 更新回 df_m12_target
+  df_m12_target$borrow_pred[idx] <- pred_b
+  df_m12_target$return_pred[idx] <- pred_r
+  df_m12_target$net_borrow_pred[idx] <- pred_n
+}
+
+
+# ======================================================
+# E) 最終整理輸出欄位
+# ======================================================
+df_m12_target <- df_m12_target %>%
+  select(sno, station, date, hour, borrow_count, return_count, net_borrow, borrow_pred, return_pred, net_borrow_pred, inventory, total)
+
+print(head(df_m12_target))
+
+write_csv(df_m12_target, "df_m12_target.csv")
+
+```
+
+
+

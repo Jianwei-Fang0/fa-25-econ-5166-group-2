@@ -1,0 +1,9 @@
+model,borrow_count,restock,earning
+Default,91778,2205,476780
+Predict_mean,91953,2222,475130
+Predict_RF,93343,2526,428230
+Predict_strategy,84193,881,665730
+
+
+
+

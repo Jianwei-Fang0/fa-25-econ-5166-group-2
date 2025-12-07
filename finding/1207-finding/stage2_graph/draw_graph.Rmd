@@ -1,0 +1,116 @@
+---
+title: "drawgraph"
+output: html_document
+date: "2025-12-06"
+---
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# === Step1: 正確讀取 CSV（保留文字） ===
+df_result <- read.csv("result.txt", header = TRUE, sep = ",", quote = "")
+
+# 確認欄位內容
+print(df_result)
+
+# === Step2: 設定 model 為因子（照原始順序）===
+df_result$model <- factor(df_result$model,
+                          levels = df_result$model)
+
+# === Step3: 再 pivot 成長表格 ===
+df_plot <- df_result %>%
+  pivot_longer(
+    cols = c(borrow_count, restock, earning),
+    names_to = "metric",
+    values_to = "value"
+  )
+
+# === Step4: 反向排序（Model 1 在最上面） ===
+df_plot$model <- factor(
+  df_plot$model,
+  levels = rev(levels(df_result$model))
+)
+
+print(df_plot)
+
+
+```
+
+```{r plot compare}
+p_borrow <- df_plot %>%
+  filter(metric == "borrow_count") %>%
+  ggplot(aes(x = value, y = model)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    x = "Borrow Count",
+    y = "Model",
+    title = "Borrow Count Across Model"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
+  )
+
+p_borrow
+
+
+```
+
+```{r plot earning}
+p_restock <- df_plot %>%
+  filter(metric == "restock") %>%
+  ggplot(aes(x = value, y = model)) +
+  geom_col(fill = "darkorange") +
+  labs(
+    x = "Restock Times",
+    y = "Model",
+    title = "Restock Times Across Models"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
+  )
+
+p_restock
+
+```
+
+```{r}
+
+
+p_earn <- df_plot %>%
+  filter(metric == "earning") %>%
+  ggplot(aes(x = value, y = model)) +
+  geom_col(fill = "forestgreen") +
+  labs(
+    x = "Earning",
+    y = "Model",
+    title = "Earning Across Models"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
+  )
+
+p_earn
+
+
+
+
+
+
+
+```
+```{r}
+
+ggsave("plot_borrow.png",  p_borrow, width = 6, height = 4, dpi = 300)
+ggsave("plot_restock.png", p_restock, width = 6, height = 4, dpi = 300)
+ggsave("plot_earn.png",    p_earn,    width = 6, height = 4, dpi = 300)
+
+
+```

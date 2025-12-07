@@ -1,0 +1,93 @@
+---
+title: "strategy_1_stage2"
+output: html_document
+date: "2025-12-03"
+---
+
+
+```{r}
+library(data.table)
+
+# 讀資料
+df <- fread("data_merged/df_m12_target.csv")
+
+# 先排序避免混亂
+df <- df[order(station, date, hour)]
+
+```
+
+
+# 第三種策略 預計不會帶來補車收益大於x就不補
+# 更新 inventory
+```{r}
+
+stations <- unique(df$station)
+
+# 初始化
+df[, inv_real := inventory]
+df[, restock := 0]
+
+# 補車參數
+target_ratio <- 0.75
+
+for (st in stations) {
+  idx <- which(df$station == st)
+
+  for (i in seq_along(idx)) {
+    row_id <- idx[i]
+    if (i == 1) next
+
+    prev_id <- idx[i - 1]
+
+    prev_inv_real <- df$inv_real[prev_id]
+    net_b         <- df$net_borrow[prev_id]
+    total         <- df$total[row_id]
+
+    target_inv <- round(total * target_ratio)
+
+    # 預測需求
+    pred_demand <- df$borrow_pred[prev_id] - df$return_pred[prev_id]
+
+    # 兩大補車觸發條件
+               # 當下沒車
+    cond_pred <- (pred_demand-prev_inv_real >= 5)  # 預測將借光且短缺五台以上
+
+    if (cond_pred) {
+      # 🚚 補車立即生效（不延遲）
+      df$inv_real[row_id] <- target_inv - net_b
+      df$restock[row_id]  <- 1
+    } else {
+      # 正常庫存更新
+      df$inv_real[row_id] <- prev_inv_real - net_b
+    }
+
+    # 限制庫存範圍
+    df$inv_real[row_id] <- max(0, min(df$inv_real[row_id], total))
+  }
+}
+
+```
+
+
+
+```{r}
+
+df[, borrow_earn_count := fifelse(net_borrow > 0, pmin(net_borrow, inv_real), 0)]
+
+```
+
+```{r}
+
+borrow_gain <- 10
+fixed_cost <- 200
+
+a <-sum(df$borrow_earn_count)
+b <- sum(df$restock)
+
+profit = borrow_gain * a - fixed_cost * b
+
+
+print(a)
+print(b)
+print(profit)
+```

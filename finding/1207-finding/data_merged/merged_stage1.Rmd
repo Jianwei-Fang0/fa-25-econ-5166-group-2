@@ -1,0 +1,309 @@
+---
+title: "Data merged"
+author: "Yi-Xiang Ma"
+date: "2025-11-30"
+output:
+  pdf_document:
+    latex_engine: xelatex
+header-includes:
+- \usepackage{xeCJK}
+- \setCJKmainfont{冬青黑體繁體中文}
+---
+
+
+
+s
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+# =========================
+# 0) Libraries
+# =========================
+library(dplyr)
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(tibble)
+library(purrr)
+library(randomForest)
+library(lubridate)
+```
+
+
+```{r}
+# =========================
+# A) Clean Weather Data
+# =========================
+df_weather <- read_csv("data/new_weather_2024.txt") %>%
+  mutate(
+    `觀測時間(hour)` = if_else(`觀測時間(hour)` == 24, 0, `觀測時間(hour)`),
+    `降水量(mm)` = ifelse(`降水量(mm)` == "T", 0, `降水量(mm)`),
+    `降水量(mm)` = as.numeric(`降水量(mm)`)
+  ) %>%
+  rename(
+    station_pressure = `測站氣壓(hPa)`,
+    temperature      = `氣溫(℃)`,
+    humidity         = `相對溼度(%)`,
+    wind_speed       = `風速(m/s)`,
+    max_wind_speed   = `最大瞬間風(m/s)`,
+    rainfall         = `降水量(mm)`,
+    rain_duration    = `降水時數(h)`,
+    solar_radiation  = `全天空日射量(MJ/㎡)`,
+    uv_index         = 紫外線指數
+  ) %>%
+  select(-c(`最大瞬間風風向(360degree)`,
+            `風向(360degree)`,
+            `露點溫度(℃)`,
+            `海平面氣壓(hPa)`,
+            `總雲量(0~10)`,
+            `能見度(km)`,
+            `日照時數(h)`,
+            `uv_index`,
+            `rain_duration`))
+```
+
+
+
+```{r}
+df_stat_info   <- read_csv("data/ntu_area_ubike_stations_sorted.csv")
+
+df_stat_flow_m3<- read.csv("data/station_flow_202403_new.txt", sep = ",", header = TRUE)
+df_stat_flow_m4<- read.csv("data/station_flow_202404_new.txt", sep = ",", header = TRUE)
+df_stat_flow_m5<- read.csv("data/station_flow_202405_new.txt", sep = ",", header = TRUE)
+df_stat_flow_m9<- read.csv("data/station_flow_202409_new.txt", sep = ",", header = TRUE)
+df_stat_flow_m10<- read.csv("data/station_flow_202410_new.txt", sep = ",", header = TRUE)
+df_stat_flow_m11<- read.csv("data/station_flow_202411_new.txt", sep = ",", header = TRUE)
+df_is_weekday <- read_csv("data/weekday_or_not.csv")
+```
+
+```{r}
+
+# =========================
+# 2) (flow 與 info 同步)
+# =========================
+
+df_stat_info$sna <- gsub("^YouBike2\\.0_", "", df_stat_info$sna)
+
+# =========================
+# 3) 合併六個月份的 flow
+# =========================
+df_all <- bind_rows(
+  #df_stat_flow_m3,
+  #df_stat_flow_m4,
+  #df_stat_flow_m5,
+  df_stat_flow_m9,
+  df_stat_flow_m10,
+  df_stat_flow_m11
+) %>% arrange(station, date, hour)
+
+
+df_merged <- df_all %>%
+  left_join(df_stat_info, by = c("station" = "sna"))
+
+
+# =========================
+# 5) 簡單缺值處理與刪除不需要的欄位（站點靜態欄）
+# =========================
+df_merged <- df_merged %>%
+  tidyr::drop_na() %>%
+  select(-c(sarea, latitude, longitude, ar, sareaen, aren, act))
+```
+
+
+
+
+```{r}
+# =========================
+# 6) 新增4項時間特徵與淨借車量
+# =========================
+
+df_merged <- df_merged %>%
+  mutate(
+    date = as.Date(date),
+    hour = as.integer(hour),
+
+    # 🚇 早晚尖峰
+    is_peak_morning = hour %in% 7:9,     #上班尖峰
+    is_peak_evening = hour %in% 17:19,   #下班尖峰
+    is_peak_noon    = hour == 12,        #中午尖峰(短)
+    is_peak_any     = is_peak_morning | is_peak_evening,
+
+    # 🌙 深夜時段(低需求)
+    is_night = hour %in% c(0:5, 23),
+
+
+  
+    
+    # 🚲 淨借車量 = 借車 - 還車
+    net_borrow = borrow_count - return_count
+    
+    
+  ) 
+
+
+```
+
+```{r}
+
+# 先把 date 都轉成 Date（用 ymd 可以吃到 2024/3/1 這種格式）
+df_is_weekday <- df_is_weekday %>%
+  mutate(date = ymd(date))
+
+df_weather <- df_weather %>%
+  mutate(日期 = ymd(日期))
+
+df_merged <- df_merged %>%
+
+  # 6.1 合併 weekday / holiday 資訊
+  left_join(df_is_weekday, by = "date") %>%   # 會多出 is_weekend, is_holiday
+
+  # 6.2 合併天氣資料（已處理 24→0）
+  left_join(
+    df_weather,
+    by = c("date" = "日期",
+           "hour" = "觀測時間(hour)")
+  )%>%
+  mutate(
+    is_dayoff = is_weekend | is_holiday
+  )
+
+
+
+
+df_merged <- df_merged %>% tidyr::drop_na()
+
+readr::write_csv(df_merged, "df_merged.csv")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+run RF model with cross validation(5-fold)
+```{r}
+
+
+library(data.table)
+library(ranger)
+library(future.apply)
+plan(multisession, workers = parallel::detectCores())
+
+set.seed(42)
+
+
+# ==== 基本設定 ====
+dt <- as.data.table(df_merged)
+targets      <- c("borrow_count", "return_count","net_borrow")
+
+features <- c(
+  "is_peak_morning","is_peak_evening","is_peak_noon","is_peak_any","is_night",
+  "is_weekend","is_holiday","is_dayoff",
+  "station_pressure","temperature","humidity","wind_speed",
+  "max_wind_speed","rainfall","solar_radiation",
+  "total"
+)
+K <- 5  # blocked 5-fold，每折測試 20%
+
+
+# 字串轉因子（一次處理）
+for (nm in features) if (is.character(dt[[nm]])) dt[, (nm) := as.factor(get(nm))]
+
+stations <- unique(dt$station)
+
+# ==== 主程式：僅計算 pooled 指標 ====
+out_list <- list()
+
+for (st in stations) {
+  d <- dt[station == st][order(date, hour)]
+  n <- nrow(d)
+  if (n < 80) next  # 測試集要有 20% 的量
+
+  # 5 個連續測試區段
+  cuts <- floor(n * (0:K) / K)
+  test_ranges <- lapply(seq_len(K), function(i) c(cuts[i] + 1L, if (i < K) cuts[i+1L] else n))
+
+  for (y in targets) {
+    fml <- as.formula(paste(y, "~", paste(features, collapse = " + ")))
+
+    # 累計器（只為 pooled 指標）
+    sse_total <- 0
+    sae_total <- 0
+    test_amount <- 0
+    sum_y  <- 0
+    sum_y2 <- 0
+
+    for (i in seq_len(K)) {
+      te_st <- test_ranges[[i]][1]
+      te_en <- test_ranges[[i]][2]
+      te_idx <- te_st:te_en
+      tr_idx <- setdiff(seq_len(n), te_idx)
+      if (length(te_idx) < 5 || length(tr_idx) < 10) next
+
+      tr <- d[tr_idx]
+      te <- d[te_idx]
+
+      rf <- ranger(
+        formula     = fml,
+        data        = tr,
+        num.trees   = 1000,           # 較快、CV 夠用
+        importance  = "none",
+        num.threads = 0,             # 用滿 CPU
+        respect.unordered.factors = "order",
+        seed        = 42 + i
+      )
+
+      pred <- predict(rf, te)$predictions
+      y_te <- te[[y]]
+
+      err <- y_te - pred
+      sse_total    <- sse_total + sum(err^2)
+      sae_total    <- sae_total + sum(abs(err))
+      test_amount <- test_amount + length(y_te)
+      sum_y        <- sum_y + sum(y_te)
+      sum_y2       <- sum_y2 + sum(y_te^2)
+    }
+
+    if (test_amount > 0) {
+      ybar_all  <- sum_y / test_amount
+      tss_total <- sum_y2 - test_amount * (ybar_all^2)
+      R2    <- if (tss_total > 0) 1 - (sse_total / tss_total) else NA_real_
+      RMSE  <- sqrt(sse_total / test_amount)
+      MAE <- sae_total / test_amount
+    } else {
+      R2 <- RMSE <- MAE <- NA_real_
+    }
+
+    out_list[[paste(st, y, sep = " :: ")]] <- data.table(
+      station = st, target = y,
+      RMSE = RMSE,
+      MAE = MAE,
+      R2 = R2,
+      test_amount = test_amount
+    )
+  }
+}
+
+
+metrics_summary_min <- rbindlist(out_list, use.names = TRUE, fill = TRUE)
+df_metrics <- as.data.frame(metrics_summary_min)
+print(df_metrics)
+```
+```{r}
+
+readr::write_csv(df_metrics, "R2_CV.csv")
+
+
+```
+
+
+
