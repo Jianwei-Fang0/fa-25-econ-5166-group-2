@@ -1,0 +1,2499 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f45ed9847730851c129a85915e00b76a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_f45ed9847730851c129a85915e00b76a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f45ed9847730851c129a85915e00b76a = L.map(
+                "map_f45ed9847730851c129a85915e00b76a",
+                {
+                    center: [25.017701068493153, 121.53900290410962],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_da3f185ce0a3778479c30fc4a91f251b = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_da3f185ce0a3778479c30fc4a91f251b.addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+            var circle_marker_5847395bce55c93a8279b8920fc485e8 = L.circleMarker(
+                [25.02153, 121.54299],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_4cb9f51d777519d107de777df2de2d87 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a167737c8ae391bf6e13490be9ff993a = $(`<div id="html_a167737c8ae391bf6e13490be9ff993a" style="width: 100.0%; height: 100.0%;">辛亥復興路口西北側</div>`)[0];
+                popup_4cb9f51d777519d107de777df2de2d87.setContent(html_a167737c8ae391bf6e13490be9ff993a);
+            
+        
+
+        circle_marker_5847395bce55c93a8279b8920fc485e8.bindPopup(popup_4cb9f51d777519d107de777df2de2d87)
+        ;
+
+        
+    
+    
+            var circle_marker_26b3a0d20b0a33399e7628a9cb3f1f20 = L.circleMarker(
+                [25.02112, 121.53407],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_fbd754636747ee77128a3f8f15eb9a8b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_81b5657e737ca822c9eedde79004c985 = $(`<div id="html_81b5657e737ca822c9eedde79004c985" style="width: 100.0%; height: 100.0%;">新生南路三段52號前</div>`)[0];
+                popup_fbd754636747ee77128a3f8f15eb9a8b.setContent(html_81b5657e737ca822c9eedde79004c985);
+            
+        
+
+        circle_marker_26b3a0d20b0a33399e7628a9cb3f1f20.bindPopup(popup_fbd754636747ee77128a3f8f15eb9a8b)
+        ;
+
+        
+    
+    
+            var circle_marker_9a2b6d2973f088cea7ada522e0758b07 = L.circleMarker(
+                [25.01976, 121.53384],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_e3e93e76875cefe4e7cab299bc93a403 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d5dcd06afdbe4a38e63b718e51f67fc2 = $(`<div id="html_d5dcd06afdbe4a38e63b718e51f67fc2" style="width: 100.0%; height: 100.0%;">新生南路三段66號前</div>`)[0];
+                popup_e3e93e76875cefe4e7cab299bc93a403.setContent(html_d5dcd06afdbe4a38e63b718e51f67fc2);
+            
+        
+
+        circle_marker_9a2b6d2973f088cea7ada522e0758b07.bindPopup(popup_e3e93e76875cefe4e7cab299bc93a403)
+        ;
+
+        
+    
+    
+            var circle_marker_e672f5765dfbb72baedb82c1e7ef3064 = L.circleMarker(
+                [25.01894, 121.53361],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_6765d5428d3c892c626b6be2addfac48 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f02f38c211eab03aaf63b981c2cffecf = $(`<div id="html_f02f38c211eab03aaf63b981c2cffecf" style="width: 100.0%; height: 100.0%;">新生南路三段82號前</div>`)[0];
+                popup_6765d5428d3c892c626b6be2addfac48.setContent(html_f02f38c211eab03aaf63b981c2cffecf);
+            
+        
+
+        circle_marker_e672f5765dfbb72baedb82c1e7ef3064.bindPopup(popup_6765d5428d3c892c626b6be2addfac48)
+        ;
+
+        
+    
+    
+            var circle_marker_e68d73cb5f2d59d0d0d932ca2d721859 = L.circleMarker(
+                [25.01385, 121.53549],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_7708d90e75d0d69cb4ec03c46811f2e6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_22b223f7d4bbe0cded578e1ce0542407 = $(`<div id="html_22b223f7d4bbe0cded578e1ce0542407" style="width: 100.0%; height: 100.0%;">銘傳國小側門</div>`)[0];
+                popup_7708d90e75d0d69cb4ec03c46811f2e6.setContent(html_22b223f7d4bbe0cded578e1ce0542407);
+            
+        
+
+        circle_marker_e68d73cb5f2d59d0d0d932ca2d721859.bindPopup(popup_7708d90e75d0d69cb4ec03c46811f2e6)
+        ;
+
+        
+    
+    
+            var circle_marker_ffb9024541e0bdd12ab3b6d199b418dd = L.circleMarker(
+                [25.01491, 121.53438],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_1236ead5f05b202e92b7e5e563b40e5d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_de1b728be00e5dcdb69888401bf46e50 = $(`<div id="html_de1b728be00e5dcdb69888401bf46e50" style="width: 100.0%; height: 100.0%;">捷運公館站(2號出口)</div>`)[0];
+                popup_1236ead5f05b202e92b7e5e563b40e5d.setContent(html_de1b728be00e5dcdb69888401bf46e50);
+            
+        
+
+        circle_marker_ffb9024541e0bdd12ab3b6d199b418dd.bindPopup(popup_1236ead5f05b202e92b7e5e563b40e5d)
+        ;
+
+        
+    
+    
+            var circle_marker_1cd7b4f9b1bdb14c8c65d465b938b8ec = L.circleMarker(
+                [25.01244, 121.53661],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_fae74f2d9d7f1eabc1ec533738ba4a18 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ce81717a7faed10ba33f1889439a54b2 = $(`<div id="html_ce81717a7faed10ba33f1889439a54b2" style="width: 100.0%; height: 100.0%;">第二學生活動中心</div>`)[0];
+                popup_fae74f2d9d7f1eabc1ec533738ba4a18.setContent(html_ce81717a7faed10ba33f1889439a54b2);
+            
+        
+
+        circle_marker_1cd7b4f9b1bdb14c8c65d465b938b8ec.bindPopup(popup_fae74f2d9d7f1eabc1ec533738ba4a18)
+        ;
+
+        
+    
+    
+            var circle_marker_72f28e24650251a964d9b70d632089d2 = L.circleMarker(
+                [25.01451, 121.54142],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_93a2dc7e16bfc42cb89b6de17564958a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_85365e818362799230892ba713f48bfa = $(`<div id="html_85365e818362799230892ba713f48bfa" style="width: 100.0%; height: 100.0%;">臺灣科技大學正門</div>`)[0];
+                popup_93a2dc7e16bfc42cb89b6de17564958a.setContent(html_85365e818362799230892ba713f48bfa);
+            
+        
+
+        circle_marker_72f28e24650251a964d9b70d632089d2.bindPopup(popup_93a2dc7e16bfc42cb89b6de17564958a)
+        ;
+
+        
+    
+    
+            var circle_marker_284af509ccf40fa5b5dd9114d822908c = L.circleMarker(
+                [25.01295, 121.53973],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_27fd625e269a485d39ce81a1805bd0eb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_99ddf2c1a4df64e5b647fb4b734dc43c = $(`<div id="html_99ddf2c1a4df64e5b647fb4b734dc43c" style="width: 100.0%; height: 100.0%;">臺灣科技大學側門</div>`)[0];
+                popup_27fd625e269a485d39ce81a1805bd0eb.setContent(html_99ddf2c1a4df64e5b647fb4b734dc43c);
+            
+        
+
+        circle_marker_284af509ccf40fa5b5dd9114d822908c.bindPopup(popup_27fd625e269a485d39ce81a1805bd0eb)
+        ;
+
+        
+    
+    
+            var circle_marker_d7edd01ed80235c02f49a827a479ae2d = L.circleMarker(
+                [25.01537, 121.54698],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_27917bca169b1f0baaed8a1b50f16dd7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0d8d8861a7a4e1da808c7e0995656ac1 = $(`<div id="html_0d8d8861a7a4e1da808c7e0995656ac1" style="width: 100.0%; height: 100.0%;">臺大男七舍前</div>`)[0];
+                popup_27917bca169b1f0baaed8a1b50f16dd7.setContent(html_0d8d8861a7a4e1da808c7e0995656ac1);
+            
+        
+
+        circle_marker_d7edd01ed80235c02f49a827a479ae2d.bindPopup(popup_27917bca169b1f0baaed8a1b50f16dd7)
+        ;
+
+        
+    
+    
+            var circle_marker_1d695d9e0244b0992c29563fc3b8c589 = L.circleMarker(
+                [25.01637, 121.54535],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_b816ff604ed16d9de234e8663ab4a27f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d3097868685562fd3f88aa7adbea55b4 = $(`<div id="html_d3097868685562fd3f88aa7adbea55b4" style="width: 100.0%; height: 100.0%;">臺大男一舍前</div>`)[0];
+                popup_b816ff604ed16d9de234e8663ab4a27f.setContent(html_d3097868685562fd3f88aa7adbea55b4);
+            
+        
+
+        circle_marker_1d695d9e0244b0992c29563fc3b8c589.bindPopup(popup_b816ff604ed16d9de234e8663ab4a27f)
+        ;
+
+        
+    
+    
+            var circle_marker_5936383f5a38838d1094f8be6df62383 = L.circleMarker(
+                [25.01664, 121.5452],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_530b9fc9a9308cfc0598fd51a005a4c4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a3e692d5d66230b51deb96a0876908f9 = $(`<div id="html_a3e692d5d66230b51deb96a0876908f9" style="width: 100.0%; height: 100.0%;">臺大男六舍前</div>`)[0];
+                popup_530b9fc9a9308cfc0598fd51a005a4c4.setContent(html_a3e692d5d66230b51deb96a0876908f9);
+            
+        
+
+        circle_marker_5936383f5a38838d1094f8be6df62383.bindPopup(popup_530b9fc9a9308cfc0598fd51a005a4c4)
+        ;
+
+        
+    
+    
+            var circle_marker_cbaac05b6533afb06321c6fe6b88f87e = L.circleMarker(
+                [25.01576, 121.54291],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_622a39c9ebcb4efdd4f4d6ccb3ac412e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_850cb9cbe35de85b7882aec6b7d6d630 = $(`<div id="html_850cb9cbe35de85b7882aec6b7d6d630" style="width: 100.0%; height: 100.0%;">臺大動物醫院前</div>`)[0];
+                popup_622a39c9ebcb4efdd4f4d6ccb3ac412e.setContent(html_850cb9cbe35de85b7882aec6b7d6d630);
+            
+        
+
+        circle_marker_cbaac05b6533afb06321c6fe6b88f87e.bindPopup(popup_622a39c9ebcb4efdd4f4d6ccb3ac412e)
+        ;
+
+        
+    
+    
+            var circle_marker_91fbf4db7b0c2321e4456a369cfadc8a = L.circleMarker(
+                [25.02032, 121.54497],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_63088b7abc86ac88f334559d9f9f630d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_570b2b49badaf0dcd71f20e7c94954e7 = $(`<div id="html_570b2b49badaf0dcd71f20e7c94954e7" style="width: 100.0%; height: 100.0%;">臺大萬才館前</div>`)[0];
+                popup_63088b7abc86ac88f334559d9f9f630d.setContent(html_570b2b49badaf0dcd71f20e7c94954e7);
+            
+        
+
+        circle_marker_91fbf4db7b0c2321e4456a369cfadc8a.bindPopup(popup_63088b7abc86ac88f334559d9f9f630d)
+        ;
+
+        
+    
+    
+            var circle_marker_f32f40f8478c2a6b0f927bbf3ce41dcf = L.circleMarker(
+                [25.02076, 121.54432],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_ca47b3d10cf201dc9a0b0f112c52d100 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9205eab62b14990ae6367b52f7e3ec9d = $(`<div id="html_9205eab62b14990ae6367b52f7e3ec9d" style="width: 100.0%; height: 100.0%;">臺大國青大樓宿舍前</div>`)[0];
+                popup_ca47b3d10cf201dc9a0b0f112c52d100.setContent(html_9205eab62b14990ae6367b52f7e3ec9d);
+            
+        
+
+        circle_marker_f32f40f8478c2a6b0f927bbf3ce41dcf.bindPopup(popup_ca47b3d10cf201dc9a0b0f112c52d100)
+        ;
+
+        
+    
+    
+            var circle_marker_30b1bdb5c468936a235556a8d843700d = L.circleMarker(
+                [25.02101, 121.54284],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_d8c5d6c09a5348d05caf425478c73424 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2afce99d38001e907706d36cb3a7120a = $(`<div id="html_2afce99d38001e907706d36cb3a7120a" style="width: 100.0%; height: 100.0%;">臺大社科院圖書館前</div>`)[0];
+                popup_d8c5d6c09a5348d05caf425478c73424.setContent(html_2afce99d38001e907706d36cb3a7120a);
+            
+        
+
+        circle_marker_30b1bdb5c468936a235556a8d843700d.bindPopup(popup_d8c5d6c09a5348d05caf425478c73424)
+        ;
+
+        
+    
+    
+            var circle_marker_56e7eb3e2c6018ba34ba2afa90aba711 = L.circleMarker(
+                [25.02104, 121.54081],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_f65a6aebb922253a86aa65b12ca1192c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f5c425eba344c3ea8331a63806cf5aa8 = $(`<div id="html_f5c425eba344c3ea8331a63806cf5aa8" style="width: 100.0%; height: 100.0%;">臺大法人語言訓練中心前</div>`)[0];
+                popup_f65a6aebb922253a86aa65b12ca1192c.setContent(html_f5c425eba344c3ea8331a63806cf5aa8);
+            
+        
+
+        circle_marker_56e7eb3e2c6018ba34ba2afa90aba711.bindPopup(popup_f65a6aebb922253a86aa65b12ca1192c)
+        ;
+
+        
+    
+    
+            var circle_marker_0c21b7d79f8d2ec1fa8635c46c3ec623 = L.circleMarker(
+                [25.0222, 121.53626],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_ecfbe0ed3985449e02446f79ca88113e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_25a23727cc0160800a68ba6c67416660 = $(`<div id="html_25a23727cc0160800a68ba6c67416660" style="width: 100.0%; height: 100.0%;">臺大綜合體育館停車場前</div>`)[0];
+                popup_ecfbe0ed3985449e02446f79ca88113e.setContent(html_25a23727cc0160800a68ba6c67416660);
+            
+        
+
+        circle_marker_0c21b7d79f8d2ec1fa8635c46c3ec623.bindPopup(popup_ecfbe0ed3985449e02446f79ca88113e)
+        ;
+
+        
+    
+    
+            var circle_marker_625561c09f328e23b37b90e4ab0cf617 = L.circleMarker(
+                [25.02218, 121.53474],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_af2081098e16db17906f38c516ea422e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b27669c4306679ba09e2f3ca30ef5a9f = $(`<div id="html_b27669c4306679ba09e2f3ca30ef5a9f" style="width: 100.0%; height: 100.0%;">辛亥新生路口東南側</div>`)[0];
+                popup_af2081098e16db17906f38c516ea422e.setContent(html_b27669c4306679ba09e2f3ca30ef5a9f);
+            
+        
+
+        circle_marker_625561c09f328e23b37b90e4ab0cf617.bindPopup(popup_af2081098e16db17906f38c516ea422e)
+        ;
+
+        
+    
+    
+            var circle_marker_317aed10a616df86c3da0877ab15d7c4 = L.circleMarker(
+                [25.01727, 121.54471],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_90c646a8932c0d63d5b74a1a42eb7d4e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c2304c155d2d0135418056bd272069e8 = $(`<div id="html_c2304c155d2d0135418056bd272069e8" style="width: 100.0%; height: 100.0%;">基隆長興路口東側</div>`)[0];
+                popup_90c646a8932c0d63d5b74a1a42eb7d4e.setContent(html_c2304c155d2d0135418056bd272069e8);
+            
+        
+
+        circle_marker_317aed10a616df86c3da0877ab15d7c4.bindPopup(popup_90c646a8932c0d63d5b74a1a42eb7d4e)
+        ;
+
+        
+    
+    
+            var circle_marker_b3b1083db948703710fad62dbf6a9098 = L.circleMarker(
+                [25.01551, 121.53374],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_150c10790388c25348a1ce55c7877a06 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5e72f65c35bf7f073ac8b262d2313cb5 = $(`<div id="html_5e72f65c35bf7f073ac8b262d2313cb5" style="width: 100.0%; height: 100.0%;">捷運公館站(3號出口)</div>`)[0];
+                popup_150c10790388c25348a1ce55c7877a06.setContent(html_5e72f65c35bf7f073ac8b262d2313cb5);
+            
+        
+
+        circle_marker_b3b1083db948703710fad62dbf6a9098.bindPopup(popup_150c10790388c25348a1ce55c7877a06)
+        ;
+
+        
+    
+    
+            var circle_marker_5c9004aea31ef88ee08f6eb87361511a = L.circleMarker(
+                [25.01744, 121.53334],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_ac9b458ad11cfaa34de96b6462679071 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2e07c192971034f5e4333750fd5f1c1d = $(`<div id="html_2e07c192971034f5e4333750fd5f1c1d" style="width: 100.0%; height: 100.0%;">新生南路三段94巷口</div>`)[0];
+                popup_ac9b458ad11cfaa34de96b6462679071.setContent(html_2e07c192971034f5e4333750fd5f1c1d);
+            
+        
+
+        circle_marker_5c9004aea31ef88ee08f6eb87361511a.bindPopup(popup_ac9b458ad11cfaa34de96b6462679071)
+        ;
+
+        
+    
+    
+            var circle_marker_b831adfb79713c79b4031059d47f948d = L.circleMarker(
+                [25.01705, 121.54435],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_334bacfaccbe62268c520bbace05a01f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_16dfcee0e888ac288d2048e9813a5108 = $(`<div id="html_16dfcee0e888ac288d2048e9813a5108" style="width: 100.0%; height: 100.0%;">基隆長興路口</div>`)[0];
+                popup_334bacfaccbe62268c520bbace05a01f.setContent(html_16dfcee0e888ac288d2048e9813a5108);
+            
+        
+
+        circle_marker_b831adfb79713c79b4031059d47f948d.bindPopup(popup_334bacfaccbe62268c520bbace05a01f)
+        ;
+
+        
+    
+    
+            var circle_marker_6e5dc130a002d1f9d5ad4c30ac9341bf = L.circleMarker(
+                [25.02101, 121.54153],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_cb56dcc03ee5dfa1f9f3072d5f0affb8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3aad5f41361519df948d200e95001fee = $(`<div id="html_3aad5f41361519df948d200e95001fee" style="width: 100.0%; height: 100.0%;">臺大資訊大樓</div>`)[0];
+                popup_cb56dcc03ee5dfa1f9f3072d5f0affb8.setContent(html_3aad5f41361519df948d200e95001fee);
+            
+        
+
+        circle_marker_6e5dc130a002d1f9d5ad4c30ac9341bf.bindPopup(popup_cb56dcc03ee5dfa1f9f3072d5f0affb8)
+        ;
+
+        
+    
+    
+            var circle_marker_d789d25f90088b6158d17021dce2600a = L.circleMarker(
+                [25.014529, 121.534374],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_dab1868c474c91f1c65efae4e163d956 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_23ea47f4cb54f5108be36e83cd14d8ad = $(`<div id="html_23ea47f4cb54f5108be36e83cd14d8ad" style="width: 100.0%; height: 100.0%;">捷運公館站(1號出口)</div>`)[0];
+                popup_dab1868c474c91f1c65efae4e163d956.setContent(html_23ea47f4cb54f5108be36e83cd14d8ad);
+            
+        
+
+        circle_marker_d789d25f90088b6158d17021dce2600a.bindPopup(popup_dab1868c474c91f1c65efae4e163d956)
+        ;
+
+        
+    
+    
+            var circle_marker_4274712e298af634bf8437aedc906a59 = L.circleMarker(
+                [25.015069, 121.533828],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_6ee0df20c4cc8db2100333e1e4d5af27 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_85e05a0fee23d6be9ef966bf84a10cca = $(`<div id="html_85e05a0fee23d6be9ef966bf84a10cca" style="width: 100.0%; height: 100.0%;">捷運公館站(4號出口)</div>`)[0];
+                popup_6ee0df20c4cc8db2100333e1e4d5af27.setContent(html_85e05a0fee23d6be9ef966bf84a10cca);
+            
+        
+
+        circle_marker_4274712e298af634bf8437aedc906a59.bindPopup(popup_6ee0df20c4cc8db2100333e1e4d5af27)
+        ;
+
+        
+    
+    
+            var circle_marker_d0714023b86c0ec40aea457e40ad7655 = L.circleMarker(
+                [25.01729, 121.54531],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_4cfda2a96683db999c71ade61251bbb3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0f422e12eb49914f612accc3fc64ab37 = $(`<div id="html_0f422e12eb49914f612accc3fc64ab37" style="width: 100.0%; height: 100.0%;">臺大男八舍東側</div>`)[0];
+                popup_4cfda2a96683db999c71ade61251bbb3.setContent(html_0f422e12eb49914f612accc3fc64ab37);
+            
+        
+
+        circle_marker_d0714023b86c0ec40aea457e40ad7655.bindPopup(popup_4cfda2a96683db999c71ade61251bbb3)
+        ;
+
+        
+    
+    
+            var circle_marker_489d7e1d7481b36d3f2320542a38e59e = L.circleMarker(
+                [25.01408, 121.53759],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_4f0d66734157f16790bc7ac0d7a81660 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_850cdf49c8cf01171c07930714215866 = $(`<div id="html_850cdf49c8cf01171c07930714215866" style="width: 100.0%; height: 100.0%;">臺大禮賢樓東南側</div>`)[0];
+                popup_4f0d66734157f16790bc7ac0d7a81660.setContent(html_850cdf49c8cf01171c07930714215866);
+            
+        
+
+        circle_marker_489d7e1d7481b36d3f2320542a38e59e.bindPopup(popup_4f0d66734157f16790bc7ac0d7a81660)
+        ;
+
+        
+    
+    
+            var circle_marker_8570318f7959c3905b97dc9908257cb3 = L.circleMarker(
+                [25.01839, 121.53404],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_79c4587741f49f4960484f4918344d83 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2ec73553e5ac21fee2bd65cd680c0863 = $(`<div id="html_2ec73553e5ac21fee2bd65cd680c0863" style="width: 100.0%; height: 100.0%;">臺大農業陳列館北側</div>`)[0];
+                popup_79c4587741f49f4960484f4918344d83.setContent(html_2ec73553e5ac21fee2bd65cd680c0863);
+            
+        
+
+        circle_marker_8570318f7959c3905b97dc9908257cb3.bindPopup(popup_79c4587741f49f4960484f4918344d83)
+        ;
+
+        
+    
+    
+            var circle_marker_8b9b74a1c8b81e89894331f3f7db5f2a = L.circleMarker(
+                [25.01355, 121.53673],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_71b173272cd155af1f90be74e9119c9b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0fc385ea688e4a3ddd139803f5c6499c = $(`<div id="html_0fc385ea688e4a3ddd139803f5c6499c" style="width: 100.0%; height: 100.0%;">臺大管理學院二館北側</div>`)[0];
+                popup_71b173272cd155af1f90be74e9119c9b.setContent(html_0fc385ea688e4a3ddd139803f5c6499c);
+            
+        
+
+        circle_marker_8b9b74a1c8b81e89894331f3f7db5f2a.bindPopup(popup_71b173272cd155af1f90be74e9119c9b)
+        ;
+
+        
+    
+    
+            var circle_marker_02b6e52652cee547f7b256548b349c1b = L.circleMarker(
+                [25.01761, 121.53844],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_87c116387cc2a5684d56bcbd7504cda8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_35ef3240329a93ec643ca5824e964107 = $(`<div id="html_35ef3240329a93ec643ca5824e964107" style="width: 100.0%; height: 100.0%;">臺大土木系館</div>`)[0];
+                popup_87c116387cc2a5684d56bcbd7504cda8.setContent(html_35ef3240329a93ec643ca5824e964107);
+            
+        
+
+        circle_marker_02b6e52652cee547f7b256548b349c1b.bindPopup(popup_87c116387cc2a5684d56bcbd7504cda8)
+        ;
+
+        
+    
+    
+            var circle_marker_fad08e312412ac431ab0d36f7f00e305 = L.circleMarker(
+                [25.01547, 121.53436],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_6be35e29273151f80cdf7255e24226b2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_923b70fc1835a373ad21fa63299d02f9 = $(`<div id="html_923b70fc1835a373ad21fa63299d02f9" style="width: 100.0%; height: 100.0%;">臺大大一女舍北側</div>`)[0];
+                popup_6be35e29273151f80cdf7255e24226b2.setContent(html_923b70fc1835a373ad21fa63299d02f9);
+            
+        
+
+        circle_marker_fad08e312412ac431ab0d36f7f00e305.bindPopup(popup_6be35e29273151f80cdf7255e24226b2)
+        ;
+
+        
+    
+    
+            var circle_marker_36de2d0eda716e72d82716bbcbcd0b85 = L.circleMarker(
+                [25.01937, 121.53902],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_d1fd52fb3cfa50536c0ef8cb1aea27cd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7915ef105ac85e5524eb5c8fadd89180 = $(`<div id="html_7915ef105ac85e5524eb5c8fadd89180" style="width: 100.0%; height: 100.0%;">臺大女九舍西南側</div>`)[0];
+                popup_d1fd52fb3cfa50536c0ef8cb1aea27cd.setContent(html_7915ef105ac85e5524eb5c8fadd89180);
+            
+        
+
+        circle_marker_36de2d0eda716e72d82716bbcbcd0b85.bindPopup(popup_d1fd52fb3cfa50536c0ef8cb1aea27cd)
+        ;
+
+        
+    
+    
+            var circle_marker_69bfdebd5400dba8555d8fbe4dcc83a4 = L.circleMarker(
+                [25.01846, 121.5376],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_c73c4728f26cf70c35818ba523481594 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3fe889b6c3ba19dd6afe455dade7d58c = $(`<div id="html_3fe889b6c3ba19dd6afe455dade7d58c" style="width: 100.0%; height: 100.0%;">臺大小福樓東側</div>`)[0];
+                popup_c73c4728f26cf70c35818ba523481594.setContent(html_3fe889b6c3ba19dd6afe455dade7d58c);
+            
+        
+
+        circle_marker_69bfdebd5400dba8555d8fbe4dcc83a4.bindPopup(popup_c73c4728f26cf70c35818ba523481594)
+        ;
+
+        
+    
+    
+            var circle_marker_a8c07fe351ae12ff5e5294214e8d3102 = L.circleMarker(
+                [25.01616, 121.54251],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_dd03058e02a5ae2be5d127336ab33b2c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bf756e1b72890e981c637b534fda0ba1 = $(`<div id="html_bf756e1b72890e981c637b534fda0ba1" style="width: 100.0%; height: 100.0%;">臺大立體機車停車場</div>`)[0];
+                popup_dd03058e02a5ae2be5d127336ab33b2c.setContent(html_bf756e1b72890e981c637b534fda0ba1);
+            
+        
+
+        circle_marker_a8c07fe351ae12ff5e5294214e8d3102.bindPopup(popup_dd03058e02a5ae2be5d127336ab33b2c)
+        ;
+
+        
+    
+    
+            var circle_marker_9eb4ab817ac7a20eb92f370d514199dc = L.circleMarker(
+                [25.01857, 121.54059],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_d5457fcabfae28b79302ba5b26112e32 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_871c07e2a16329bbfb3eb2fdd2b80599 = $(`<div id="html_871c07e2a16329bbfb3eb2fdd2b80599" style="width: 100.0%; height: 100.0%;">臺大工綜館南側</div>`)[0];
+                popup_d5457fcabfae28b79302ba5b26112e32.setContent(html_871c07e2a16329bbfb3eb2fdd2b80599);
+            
+        
+
+        circle_marker_9eb4ab817ac7a20eb92f370d514199dc.bindPopup(popup_d5457fcabfae28b79302ba5b26112e32)
+        ;
+
+        
+    
+    
+            var circle_marker_f5ad85b452b6f7d06e98850d0f3bf420 = L.circleMarker(
+                [25.02108, 121.53783],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_72e3ed05ff93e62b348664079420606d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_761b99558697903595975f07f85f8987 = $(`<div id="html_761b99558697903595975f07f85f8987" style="width: 100.0%; height: 100.0%;">臺大天文數學館南側</div>`)[0];
+                popup_72e3ed05ff93e62b348664079420606d.setContent(html_761b99558697903595975f07f85f8987);
+            
+        
+
+        circle_marker_f5ad85b452b6f7d06e98850d0f3bf420.bindPopup(popup_72e3ed05ff93e62b348664079420606d)
+        ;
+
+        
+    
+    
+            var circle_marker_3bfbd66eca558809d928fd24101a75fe = L.circleMarker(
+                [25.01941, 121.5404],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_adfe20f1d769315c94776de4a04da5b0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0de35b85d17bf67b6a24f6f3df7cc1b5 = $(`<div id="html_0de35b85d17bf67b6a24f6f3df7cc1b5" style="width: 100.0%; height: 100.0%;">臺大心理系館南側</div>`)[0];
+                popup_adfe20f1d769315c94776de4a04da5b0.setContent(html_0de35b85d17bf67b6a24f6f3df7cc1b5);
+            
+        
+
+        circle_marker_3bfbd66eca558809d928fd24101a75fe.bindPopup(popup_adfe20f1d769315c94776de4a04da5b0)
+        ;
+
+        
+    
+    
+            var circle_marker_4337cf185a80f5a914a4c8f18e12866a = L.circleMarker(
+                [25.01793, 121.53585],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_231231d6c1352e40b12efd1ce0c0b736 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_65cc112eaf5c661773bf9fef4723fcc4 = $(`<div id="html_65cc112eaf5c661773bf9fef4723fcc4" style="width: 100.0%; height: 100.0%;">臺大樂學館東側</div>`)[0];
+                popup_231231d6c1352e40b12efd1ce0c0b736.setContent(html_65cc112eaf5c661773bf9fef4723fcc4);
+            
+        
+
+        circle_marker_4337cf185a80f5a914a4c8f18e12866a.bindPopup(popup_231231d6c1352e40b12efd1ce0c0b736)
+        ;
+
+        
+    
+    
+            var circle_marker_a77e3a58ff4573239e68504d6787f576 = L.circleMarker(
+                [25.01627, 121.53535],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_e4412abf711fefc799ee0d7ea96c1a89 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6923fe5e22e4d6c155d3cb4dceeb7c0f = $(`<div id="html_6923fe5e22e4d6c155d3cb4dceeb7c0f" style="width: 100.0%; height: 100.0%;">臺大農化新館西側</div>`)[0];
+                popup_e4412abf711fefc799ee0d7ea96c1a89.setContent(html_6923fe5e22e4d6c155d3cb4dceeb7c0f);
+            
+        
+
+        circle_marker_a77e3a58ff4573239e68504d6787f576.bindPopup(popup_e4412abf711fefc799ee0d7ea96c1a89)
+        ;
+
+        
+    
+    
+            var circle_marker_84dccfeddeb3f34deeecc03e4f1deceb = L.circleMarker(
+                [25.01666, 121.53718],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_8663c71fed87b3f5620f6a84ea8253bf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6d261c7c391dd2d4ad708e38f6c1168a = $(`<div id="html_6d261c7c391dd2d4ad708e38f6c1168a" style="width: 100.0%; height: 100.0%;">臺大五號館西側</div>`)[0];
+                popup_8663c71fed87b3f5620f6a84ea8253bf.setContent(html_6d261c7c391dd2d4ad708e38f6c1168a);
+            
+        
+
+        circle_marker_84dccfeddeb3f34deeecc03e4f1deceb.bindPopup(popup_8663c71fed87b3f5620f6a84ea8253bf)
+        ;
+
+        
+    
+    
+            var circle_marker_bd19ea1b37bb84271dfbddfafc3fb009 = L.circleMarker(
+                [25.0198, 121.53583],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_ee3e924d07c313660a46369b0687c4b2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cf7a49a033968f3336e306b3a4ac8a9e = $(`<div id="html_cf7a49a033968f3336e306b3a4ac8a9e" style="width: 100.0%; height: 100.0%;">臺大舊體育館西側</div>`)[0];
+                popup_ee3e924d07c313660a46369b0687c4b2.setContent(html_cf7a49a033968f3336e306b3a4ac8a9e);
+            
+        
+
+        circle_marker_bd19ea1b37bb84271dfbddfafc3fb009.bindPopup(popup_ee3e924d07c313660a46369b0687c4b2)
+        ;
+
+        
+    
+    
+            var circle_marker_cf51d4fd93197507d83d709b904cf920 = L.circleMarker(
+                [25.01566, 121.53786],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_eeed144fc584fe6950cc20d00d47f41f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f4024329aa97a7d5583b071e9642e0ed = $(`<div id="html_f4024329aa97a7d5583b071e9642e0ed" style="width: 100.0%; height: 100.0%;">臺大共同教室東南側</div>`)[0];
+                popup_eeed144fc584fe6950cc20d00d47f41f.setContent(html_f4024329aa97a7d5583b071e9642e0ed);
+            
+        
+
+        circle_marker_cf51d4fd93197507d83d709b904cf920.bindPopup(popup_eeed144fc584fe6950cc20d00d47f41f)
+        ;
+
+        
+    
+    
+            var circle_marker_e9e017cf705c25ebdc38a095954ec734 = L.circleMarker(
+                [25.01511, 121.53786],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_8f7ce68c11b5b9af28a88d6631418d90 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_69f875bfe0c5123ab08f93ee847b8af7 = $(`<div id="html_69f875bfe0c5123ab08f93ee847b8af7" style="width: 100.0%; height: 100.0%;">臺大鹿鳴堂東側</div>`)[0];
+                popup_8f7ce68c11b5b9af28a88d6631418d90.setContent(html_69f875bfe0c5123ab08f93ee847b8af7);
+            
+        
+
+        circle_marker_e9e017cf705c25ebdc38a095954ec734.bindPopup(popup_8f7ce68c11b5b9af28a88d6631418d90)
+        ;
+
+        
+    
+    
+            var circle_marker_45b8a29932e0495beccdfcfdcf2ae78f = L.circleMarker(
+                [25.01345, 121.53798],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_5f1b7109901e6a0a815acd9be75c0c38 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_268ffe8ccb5197db4797e45210af1079 = $(`<div id="html_268ffe8ccb5197db4797e45210af1079" style="width: 100.0%; height: 100.0%;">臺大公館停車場西北側</div>`)[0];
+                popup_5f1b7109901e6a0a815acd9be75c0c38.setContent(html_268ffe8ccb5197db4797e45210af1079);
+            
+        
+
+        circle_marker_45b8a29932e0495beccdfcfdcf2ae78f.bindPopup(popup_5f1b7109901e6a0a815acd9be75c0c38)
+        ;
+
+        
+    
+    
+            var circle_marker_f43d75d34f2ad9adfcb4744f1b1afc86 = L.circleMarker(
+                [25.01603, 121.53635],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_eafc7ec4c9dfd847307f5e2cb60c3941 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_121ef4dce4676b17702b9efa8a76a14b = $(`<div id="html_121ef4dce4676b17702b9efa8a76a14b" style="width: 100.0%; height: 100.0%;">臺大第二行政大樓南側</div>`)[0];
+                popup_eafc7ec4c9dfd847307f5e2cb60c3941.setContent(html_121ef4dce4676b17702b9efa8a76a14b);
+            
+        
+
+        circle_marker_f43d75d34f2ad9adfcb4744f1b1afc86.bindPopup(popup_eafc7ec4c9dfd847307f5e2cb60c3941)
+        ;
+
+        
+    
+    
+            var circle_marker_41c5db0687e77130ba1145cc8f6d4d8f = L.circleMarker(
+                [25.01754, 121.54398],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_16f3ca2195942ef98bf17fc1ca84aac4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5fd330a77bb63cdba764bafb59a09aa7 = $(`<div id="html_5fd330a77bb63cdba764bafb59a09aa7" style="width: 100.0%; height: 100.0%;">臺大明達館機車停車場</div>`)[0];
+                popup_16f3ca2195942ef98bf17fc1ca84aac4.setContent(html_5fd330a77bb63cdba764bafb59a09aa7);
+            
+        
+
+        circle_marker_41c5db0687e77130ba1145cc8f6d4d8f.bindPopup(popup_16f3ca2195942ef98bf17fc1ca84aac4)
+        ;
+
+        
+    
+    
+            var circle_marker_15fcc4b2b5aab3ab86ceac675bbcdaee = L.circleMarker(
+                [25.01699, 121.53574],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_c5b2992d6857d7a2ee08dad5050b15f8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_01c9abf71271a01f86904b835049051f = $(`<div id="html_01c9abf71271a01f86904b835049051f" style="width: 100.0%; height: 100.0%;">臺大二號館</div>`)[0];
+                popup_c5b2992d6857d7a2ee08dad5050b15f8.setContent(html_01c9abf71271a01f86904b835049051f);
+            
+        
+
+        circle_marker_15fcc4b2b5aab3ab86ceac675bbcdaee.bindPopup(popup_c5b2992d6857d7a2ee08dad5050b15f8)
+        ;
+
+        
+    
+    
+            var circle_marker_0fe394de0955d1ad4eebe17edf9cbbba = L.circleMarker(
+                [25.02157, 121.53633],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_867f21ee3065135c376c89480fd97c11 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_32cf83eb523889dce0b2ac88c2f7c21d = $(`<div id="html_32cf83eb523889dce0b2ac88c2f7c21d" style="width: 100.0%; height: 100.0%;">臺大凝態館南側</div>`)[0];
+                popup_867f21ee3065135c376c89480fd97c11.setContent(html_32cf83eb523889dce0b2ac88c2f7c21d);
+            
+        
+
+        circle_marker_0fe394de0955d1ad4eebe17edf9cbbba.bindPopup(popup_867f21ee3065135c376c89480fd97c11)
+        ;
+
+        
+    
+    
+            var circle_marker_21c21c96d35fe8d259be66553679da99 = L.circleMarker(
+                [25.02053, 121.54145],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_673844c470d15ca459d2e4a56e131601 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f3f644555520a30db3ade3182e9d62cf = $(`<div id="html_f3f644555520a30db3ade3182e9d62cf" style="width: 100.0%; height: 100.0%;">臺大社科院西側</div>`)[0];
+                popup_673844c470d15ca459d2e4a56e131601.setContent(html_f3f644555520a30db3ade3182e9d62cf);
+            
+        
+
+        circle_marker_21c21c96d35fe8d259be66553679da99.bindPopup(popup_673844c470d15ca459d2e4a56e131601)
+        ;
+
+        
+    
+    
+            var circle_marker_3054c405f49b91a7425ca16d309dede0 = L.circleMarker(
+                [25.01987, 121.54175],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_397f364fb936b335b3348b3f9d9bc216 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ca421aa50aaf5dfe85ee284555d8eeba = $(`<div id="html_ca421aa50aaf5dfe85ee284555d8eeba" style="width: 100.0%; height: 100.0%;">臺大社會系館南側</div>`)[0];
+                popup_397f364fb936b335b3348b3f9d9bc216.setContent(html_ca421aa50aaf5dfe85ee284555d8eeba);
+            
+        
+
+        circle_marker_3054c405f49b91a7425ca16d309dede0.bindPopup(popup_397f364fb936b335b3348b3f9d9bc216)
+        ;
+
+        
+    
+    
+            var circle_marker_3a69ece051c20ac1c0fbe87b02151292 = L.circleMarker(
+                [25.02074, 121.53906],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_b34d958a6b67d69c3d14634972311a62 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b793d26325901d0d72157faa37beb483 = $(`<div id="html_b793d26325901d0d72157faa37beb483" style="width: 100.0%; height: 100.0%;">臺大思亮館東南側</div>`)[0];
+                popup_b34d958a6b67d69c3d14634972311a62.setContent(html_b793d26325901d0d72157faa37beb483);
+            
+        
+
+        circle_marker_3a69ece051c20ac1c0fbe87b02151292.bindPopup(popup_b34d958a6b67d69c3d14634972311a62)
+        ;
+
+        
+    
+    
+            var circle_marker_dc299585bfba0a9007dacf13451b91bc = L.circleMarker(
+                [25.01561, 121.53583],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_da197de93c5af812b17209df6b2fdf1b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7e0e9d1ce2ac4300906c6e9a42af6b18 = $(`<div id="html_7e0e9d1ce2ac4300906c6e9a42af6b18" style="width: 100.0%; height: 100.0%;">臺大椰林小舖</div>`)[0];
+                popup_da197de93c5af812b17209df6b2fdf1b.setContent(html_7e0e9d1ce2ac4300906c6e9a42af6b18);
+            
+        
+
+        circle_marker_dc299585bfba0a9007dacf13451b91bc.bindPopup(popup_da197de93c5af812b17209df6b2fdf1b)
+        ;
+
+        
+    
+    
+            var circle_marker_98d52b5e96940d479adbdcda1c99e39e = L.circleMarker(
+                [25.02036, 121.53992],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_688ccfb1673c1ede5b10eade1413f3df = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_59b5a524e7d50564255dba7f10df585b = $(`<div id="html_59b5a524e7d50564255dba7f10df585b" style="width: 100.0%; height: 100.0%;">臺大計資中心南側</div>`)[0];
+                popup_688ccfb1673c1ede5b10eade1413f3df.setContent(html_59b5a524e7d50564255dba7f10df585b);
+            
+        
+
+        circle_marker_98d52b5e96940d479adbdcda1c99e39e.bindPopup(popup_688ccfb1673c1ede5b10eade1413f3df)
+        ;
+
+        
+    
+    
+            var circle_marker_59754d8b44827d91e9933ad5138eee77 = L.circleMarker(
+                [25.01881, 121.53868],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_0e2252fa0e3c73f844ac9c927338ba36 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c0e2c0188ccb1c50827c775dbb947c0f = $(`<div id="html_c0e2c0188ccb1c50827c775dbb947c0f" style="width: 100.0%; height: 100.0%;">臺大原分所北側</div>`)[0];
+                popup_0e2252fa0e3c73f844ac9c927338ba36.setContent(html_c0e2c0188ccb1c50827c775dbb947c0f);
+            
+        
+
+        circle_marker_59754d8b44827d91e9933ad5138eee77.bindPopup(popup_0e2252fa0e3c73f844ac9c927338ba36)
+        ;
+
+        
+    
+    
+            var circle_marker_ff4c8cfde7b8a48a421f6622c22d8db8 = L.circleMarker(
+                [25.01548, 121.53825],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_b940e7293d8eb94f7847ca9183c374ee = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f4c2bb1df37a5363413df552fd439b5d = $(`<div id="html_f4c2bb1df37a5363413df552fd439b5d" style="width: 100.0%; height: 100.0%;">臺大生命科學館西北側</div>`)[0];
+                popup_b940e7293d8eb94f7847ca9183c374ee.setContent(html_f4c2bb1df37a5363413df552fd439b5d);
+            
+        
+
+        circle_marker_ff4c8cfde7b8a48a421f6622c22d8db8.bindPopup(popup_b940e7293d8eb94f7847ca9183c374ee)
+        ;
+
+        
+    
+    
+            var circle_marker_a2536b0cbfec650fe84eb632e6e92957 = L.circleMarker(
+                [25.01761, 121.53995],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_717daee04304d9e62bb9720fb10c8b57 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bce42ba7cafb621260eb0f0313565c32 = $(`<div id="html_bce42ba7cafb621260eb0f0313565c32" style="width: 100.0%; height: 100.0%;">臺大第一活動中心西南側</div>`)[0];
+                popup_717daee04304d9e62bb9720fb10c8b57.setContent(html_bce42ba7cafb621260eb0f0313565c32);
+            
+        
+
+        circle_marker_a2536b0cbfec650fe84eb632e6e92957.bindPopup(popup_717daee04304d9e62bb9720fb10c8b57)
+        ;
+
+        
+    
+    
+            var circle_marker_9f6cd0aceb2e30e7ebd1d29b326e29d1 = L.circleMarker(
+                [25.01922, 121.54195],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_0254a50feda19271fd7c6cf335433559 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_34e1ff7411a8b09ce5a88b66839e68f1 = $(`<div id="html_34e1ff7411a8b09ce5a88b66839e68f1" style="width: 100.0%; height: 100.0%;">臺大博理館西側</div>`)[0];
+                popup_0254a50feda19271fd7c6cf335433559.setContent(html_34e1ff7411a8b09ce5a88b66839e68f1);
+            
+        
+
+        circle_marker_9f6cd0aceb2e30e7ebd1d29b326e29d1.bindPopup(popup_0254a50feda19271fd7c6cf335433559)
+        ;
+
+        
+    
+    
+            var circle_marker_4d2b74992f3abe0e457e294b4971afa7 = L.circleMarker(
+                [25.0189, 121.536],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_532176ed679d3c5ed5555fb06a34687b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2267b16b912ab77c5a1f41c9e71c1eab = $(`<div id="html_2267b16b912ab77c5a1f41c9e71c1eab" style="width: 100.0%; height: 100.0%;">臺大博雅館西側</div>`)[0];
+                popup_532176ed679d3c5ed5555fb06a34687b.setContent(html_2267b16b912ab77c5a1f41c9e71c1eab);
+            
+        
+
+        circle_marker_4d2b74992f3abe0e457e294b4971afa7.bindPopup(popup_532176ed679d3c5ed5555fb06a34687b)
+        ;
+
+        
+    
+    
+            var circle_marker_ad5bf2d0bfc1d703c718120ca31e9925 = L.circleMarker(
+                [25.01704, 121.53888],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_aba6c88358da0e100f3a7ee969f19d7f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_521df26ea6c8f6e5634bed176fc7c946 = $(`<div id="html_521df26ea6c8f6e5634bed176fc7c946" style="width: 100.0%; height: 100.0%;">臺大森林館北側</div>`)[0];
+                popup_aba6c88358da0e100f3a7ee969f19d7f.setContent(html_521df26ea6c8f6e5634bed176fc7c946);
+            
+        
+
+        circle_marker_ad5bf2d0bfc1d703c718120ca31e9925.bindPopup(popup_aba6c88358da0e100f3a7ee969f19d7f)
+        ;
+
+        
+    
+    
+            var circle_marker_4c6a4689e24f825cf546d1d070cea91c = L.circleMarker(
+                [25.01698, 121.53455],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_ff6618155156793b1aa6a1b3224abfa7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bd25dfe1195043ecc6bb3b28768517e6 = $(`<div id="html_bd25dfe1195043ecc6bb3b28768517e6" style="width: 100.0%; height: 100.0%;">臺大一號館</div>`)[0];
+                popup_ff6618155156793b1aa6a1b3224abfa7.setContent(html_bd25dfe1195043ecc6bb3b28768517e6);
+            
+        
+
+        circle_marker_4c6a4689e24f825cf546d1d070cea91c.bindPopup(popup_ff6618155156793b1aa6a1b3224abfa7)
+        ;
+
+        
+    
+    
+            var circle_marker_3a1d53404f51aac5c8c8ea7a32a73170 = L.circleMarker(
+                [25.01539, 121.53686],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_d8a613c1ef79d4043311dc0f626e44d8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8ceae8fde0e0ec7d41a19c05523fcc15 = $(`<div id="html_8ceae8fde0e0ec7d41a19c05523fcc15" style="width: 100.0%; height: 100.0%;">臺大小小福西南側</div>`)[0];
+                popup_d8a613c1ef79d4043311dc0f626e44d8.setContent(html_8ceae8fde0e0ec7d41a19c05523fcc15);
+            
+        
+
+        circle_marker_3a1d53404f51aac5c8c8ea7a32a73170.bindPopup(popup_d8a613c1ef79d4043311dc0f626e44d8)
+        ;
+
+        
+    
+    
+            var circle_marker_5952c94a21e35520ac9c7316288e9697 = L.circleMarker(
+                [25.01337, 121.53909],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_868dba84d7014994680186e8ec70ceab = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fc864ce5d6dcb87cb41b3ac9cfd4d71e = $(`<div id="html_fc864ce5d6dcb87cb41b3ac9cfd4d71e" style="width: 100.0%; height: 100.0%;">臺大教研館北側</div>`)[0];
+                popup_868dba84d7014994680186e8ec70ceab.setContent(html_fc864ce5d6dcb87cb41b3ac9cfd4d71e);
+            
+        
+
+        circle_marker_5952c94a21e35520ac9c7316288e9697.bindPopup(popup_868dba84d7014994680186e8ec70ceab)
+        ;
+
+        
+    
+    
+            var circle_marker_cb09fbc5f7354972dbb3b2d26f1d9aae = L.circleMarker(
+                [25.01703, 121.53781],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_a17b8f8d81101d77b450afc62be3a584 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_76856d7be648a4fcac9c7d3aaf3abd9d = $(`<div id="html_76856d7be648a4fcac9c7d3aaf3abd9d" style="width: 100.0%; height: 100.0%;">臺大四號館東北側</div>`)[0];
+                popup_a17b8f8d81101d77b450afc62be3a584.setContent(html_76856d7be648a4fcac9c7d3aaf3abd9d);
+            
+        
+
+        circle_marker_cb09fbc5f7354972dbb3b2d26f1d9aae.bindPopup(popup_a17b8f8d81101d77b450afc62be3a584)
+        ;
+
+        
+    
+    
+            var circle_marker_75a5c308d6dd6aace29131289e1cf6bb = L.circleMarker(
+                [25.0196, 121.53846],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_cb16020aa0a8a3529697955644f22002 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_20b067a84542e4743c4e9a454bcc25fc = $(`<div id="html_20b067a84542e4743c4e9a454bcc25fc" style="width: 100.0%; height: 100.0%;">臺大新生教室南側</div>`)[0];
+                popup_cb16020aa0a8a3529697955644f22002.setContent(html_20b067a84542e4743c4e9a454bcc25fc);
+            
+        
+
+        circle_marker_75a5c308d6dd6aace29131289e1cf6bb.bindPopup(popup_cb16020aa0a8a3529697955644f22002)
+        ;
+
+        
+    
+    
+            var circle_marker_4e9e5462d765e414926fb80204477ca5 = L.circleMarker(
+                [25.019, 121.54305],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_a624ca318221f1fdfedbd614b5fe168a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fb8db021cb8eeff514cdfe740b74b89c = $(`<div id="html_fb8db021cb8eeff514cdfe740b74b89c" style="width: 100.0%; height: 100.0%;">臺大鄭江樓北側</div>`)[0];
+                popup_a624ca318221f1fdfedbd614b5fe168a.setContent(html_fb8db021cb8eeff514cdfe740b74b89c);
+            
+        
+
+        circle_marker_4e9e5462d765e414926fb80204477ca5.bindPopup(popup_a624ca318221f1fdfedbd614b5fe168a)
+        ;
+
+        
+    
+    
+            var circle_marker_2e819187139f91aac0f26d2920ede8db = L.circleMarker(
+                [25.01857, 121.54247],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_cba287e1c382073bf8b1bbd180031534 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2e9e1141a9556efff9b9d54094113f65 = $(`<div id="html_2e9e1141a9556efff9b9d54094113f65" style="width: 100.0%; height: 100.0%;">臺大電機二館東南側</div>`)[0];
+                popup_cba287e1c382073bf8b1bbd180031534.setContent(html_2e9e1141a9556efff9b9d54094113f65);
+            
+        
+
+        circle_marker_2e819187139f91aac0f26d2920ede8db.bindPopup(popup_cba287e1c382073bf8b1bbd180031534)
+        ;
+
+        
+    
+    
+            var circle_marker_95a8165a73e4ce0ba9df000e30769172 = L.circleMarker(
+                [25.01804, 121.53928],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_eb61cc7caebaf0e984a286635950370d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a1855f693544c8e1fd70cdb7d95eea4a = $(`<div id="html_a1855f693544c8e1fd70cdb7d95eea4a" style="width: 100.0%; height: 100.0%;">臺大圖資系館北側</div>`)[0];
+                popup_eb61cc7caebaf0e984a286635950370d.setContent(html_a1855f693544c8e1fd70cdb7d95eea4a);
+            
+        
+
+        circle_marker_95a8165a73e4ce0ba9df000e30769172.bindPopup(popup_eb61cc7caebaf0e984a286635950370d)
+        ;
+
+        
+    
+    
+            var circle_marker_713ff274a4fbb7e212e96fd2846b341a = L.circleMarker(
+                [25.0169, 121.54031],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_26dde67b7119a8b91c2ac3ded63bec69 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e0b9c7cb065f899b64e0155aa8b53614 = $(`<div id="html_e0b9c7cb065f899b64e0155aa8b53614" style="width: 100.0%; height: 100.0%;">臺大總圖書館西南側</div>`)[0];
+                popup_26dde67b7119a8b91c2ac3ded63bec69.setContent(html_e0b9c7cb065f899b64e0155aa8b53614);
+            
+        
+
+        circle_marker_713ff274a4fbb7e212e96fd2846b341a.bindPopup(popup_26dde67b7119a8b91c2ac3ded63bec69)
+        ;
+
+        
+    
+    
+            var circle_marker_c9def6ef9d3eef3bfff99da3eae22ed4 = L.circleMarker(
+                [25.01995, 121.54347],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_07065b764a645c09a16e9948de8904f4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d2557b1747fcac1b0c815c41e851100c = $(`<div id="html_d2557b1747fcac1b0c815c41e851100c" style="width: 100.0%; height: 100.0%;">臺大黑森林西側</div>`)[0];
+                popup_07065b764a645c09a16e9948de8904f4.setContent(html_d2557b1747fcac1b0c815c41e851100c);
+            
+        
+
+        circle_marker_c9def6ef9d3eef3bfff99da3eae22ed4.bindPopup(popup_07065b764a645c09a16e9948de8904f4)
+        ;
+
+        
+    
+    
+            var circle_marker_2b674a25b9200e6a1c1b1354dff74d1b = L.circleMarker(
+                [25.01791, 121.54242],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_fbaba913a8ab99106b36804635afc815 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_55daf72a6539e805a886a8f43468a10a = $(`<div id="html_55daf72a6539e805a886a8f43468a10a" style="width: 100.0%; height: 100.0%;">臺大獸醫館南側</div>`)[0];
+                popup_fbaba913a8ab99106b36804635afc815.setContent(html_55daf72a6539e805a886a8f43468a10a);
+            
+        
+
+        circle_marker_2b674a25b9200e6a1c1b1354dff74d1b.bindPopup(popup_fbaba913a8ab99106b36804635afc815)
+        ;
+
+        
+    
+    
+            var circle_marker_474ad8008dc2c657f17b341a54c62f2d = L.circleMarker(
+                [25.02112, 121.53591],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_b70fb466425718b513c25a1ebb6f83b6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6eeb5f9ede8b07b522a797381812aca8 = $(`<div id="html_6eeb5f9ede8b07b522a797381812aca8" style="width: 100.0%; height: 100.0%;">臺大新體育館東南側</div>`)[0];
+                popup_b70fb466425718b513c25a1ebb6f83b6.setContent(html_6eeb5f9ede8b07b522a797381812aca8);
+            
+        
+
+        circle_marker_474ad8008dc2c657f17b341a54c62f2d.bindPopup(popup_b70fb466425718b513c25a1ebb6f83b6)
+        ;
+
+        
+    
+    
+            var circle_marker_83399473be76c0c4f0c8265414d5fd7a = L.circleMarker(
+                [25.01816, 121.54469],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+        var popup_277a64e82e17aba21e6e678633e15569 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eb042df7b801ba270d80f178b04946f3 = $(`<div id="html_eb042df7b801ba270d80f178b04946f3" style="width: 100.0%; height: 100.0%;">臺大明達館北側(員工宿舍)</div>`)[0];
+                popup_277a64e82e17aba21e6e678633e15569.setContent(html_eb042df7b801ba270d80f178b04946f3);
+            
+        
+
+        circle_marker_83399473be76c0c4f0c8265414d5fd7a.bindPopup(popup_277a64e82e17aba21e6e678633e15569)
+        ;
+
+        
+    
+    
+            var feature_group_c441c6867cc9a69b53eab373198a5d77 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_635500b419bdb0bb79169fc23c15cc71 = L.circleMarker(
+                [25.01511, 121.53786],
+                {"bubblingMouseEvents": true, "color": "#FF0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF0000", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.066666666666666, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c441c6867cc9a69b53eab373198a5d77);
+        
+    
+        var popup_430025bed7e5fdc7b97723513dcf7383 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_1c0a87e2466d04a6a92008914f91a47e = $(`<div id="html_1c0a87e2466d04a6a92008914f91a47e" style="width: 100.0%; height: 100.0%;"><b>臺大鹿鳴堂東側</b><br>頻率一天: 3.53<br>補車量一天: 61.03<br>補車量總量: 1892</div>`)[0];
+                popup_430025bed7e5fdc7b97723513dcf7383.setContent(html_1c0a87e2466d04a6a92008914f91a47e);
+            
+        
+
+        circle_marker_635500b419bdb0bb79169fc23c15cc71.bindPopup(popup_430025bed7e5fdc7b97723513dcf7383)
+        ;
+
+        
+    
+    
+            circle_marker_635500b419bdb0bb79169fc23c15cc71.bindTooltip(
+                `<div>
+                     臺大鹿鳴堂東側 - 頻率: 3.53
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5703369f018ca8234d8438e6773c3671 = L.circleMarker(
+                [25.019, 121.54305],
+                {"bubblingMouseEvents": true, "color": "#FF0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF0000", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.838709677419354, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c441c6867cc9a69b53eab373198a5d77);
+        
+    
+        var popup_8af8be53c613069aa875d55b9a25a175 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_f46ead59f0537df4b35f43e5a14085d9 = $(`<div id="html_f46ead59f0537df4b35f43e5a14085d9" style="width: 100.0%; height: 100.0%;"><b>臺大鄭江樓北側</b><br>頻率一天: 3.42<br>補車量一天: 24.65<br>補車量總量: 764</div>`)[0];
+                popup_8af8be53c613069aa875d55b9a25a175.setContent(html_f46ead59f0537df4b35f43e5a14085d9);
+            
+        
+
+        circle_marker_5703369f018ca8234d8438e6773c3671.bindPopup(popup_8af8be53c613069aa875d55b9a25a175)
+        ;
+
+        
+    
+    
+            circle_marker_5703369f018ca8234d8438e6773c3671.bindTooltip(
+                `<div>
+                     臺大鄭江樓北側 - 頻率: 3.42
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_323c88cd69ac250dad14c42e3bc933c8 = L.circleMarker(
+                [25.014529, 121.534374],
+                {"bubblingMouseEvents": true, "color": "#FF0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF0000", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.806451612903226, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c441c6867cc9a69b53eab373198a5d77);
+        
+    
+        var popup_85f96e916e8c01227323a412c33cff13 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_dfcf5ca81d114652e66381a564fc4e19 = $(`<div id="html_dfcf5ca81d114652e66381a564fc4e19" style="width: 100.0%; height: 100.0%;"><b>捷運公館站(1號出口)</b><br>頻率一天: 2.90<br>補車量一天: 24.81<br>補車量總量: 769</div>`)[0];
+                popup_85f96e916e8c01227323a412c33cff13.setContent(html_dfcf5ca81d114652e66381a564fc4e19);
+            
+        
+
+        circle_marker_323c88cd69ac250dad14c42e3bc933c8.bindPopup(popup_85f96e916e8c01227323a412c33cff13)
+        ;
+
+        
+    
+    
+            circle_marker_323c88cd69ac250dad14c42e3bc933c8.bindTooltip(
+                `<div>
+                     捷運公館站(1號出口) - 頻率: 2.90
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d168470ede18f62af3192b32e84b122c = L.circleMarker(
+                [25.01491, 121.53438],
+                {"bubblingMouseEvents": true, "color": "#FF0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF0000", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.266666666666666, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c441c6867cc9a69b53eab373198a5d77);
+        
+    
+        var popup_45f7c1caab99dc14371aca08f3745719 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_40a15176adffff32b752b78f1ca137a2 = $(`<div id="html_40a15176adffff32b752b78f1ca137a2" style="width: 100.0%; height: 100.0%;"><b>捷運公館站(2號出口)</b><br>頻率一天: 2.63<br>補車量一天: 149.81<br>補車量總量: 4644</div>`)[0];
+                popup_45f7c1caab99dc14371aca08f3745719.setContent(html_40a15176adffff32b752b78f1ca137a2);
+            
+        
+
+        circle_marker_d168470ede18f62af3192b32e84b122c.bindPopup(popup_45f7c1caab99dc14371aca08f3745719)
+        ;
+
+        
+    
+    
+            circle_marker_d168470ede18f62af3192b32e84b122c.bindTooltip(
+                `<div>
+                     捷運公館站(2號出口) - 頻率: 2.63
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c1f743c504d0dbccb6f105572f7201a0 = L.circleMarker(
+                [25.02108, 121.53783],
+                {"bubblingMouseEvents": true, "color": "#FF0000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF0000", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.23076923076923, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c441c6867cc9a69b53eab373198a5d77);
+        
+    
+        var popup_14e0a0f5edbdfccdbbb7a07b3ea4d420 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_e97e807aa5787c43f303423428e35b8c = $(`<div id="html_e97e807aa5787c43f303423428e35b8c" style="width: 100.0%; height: 100.0%;"><b>臺大天文數學館南側</b><br>頻率一天: 2.62<br>補車量一天: 27.26<br>補車量總量: 845</div>`)[0];
+                popup_14e0a0f5edbdfccdbbb7a07b3ea4d420.setContent(html_e97e807aa5787c43f303423428e35b8c);
+            
+        
+
+        circle_marker_c1f743c504d0dbccb6f105572f7201a0.bindPopup(popup_14e0a0f5edbdfccdbbb7a07b3ea4d420)
+        ;
+
+        
+    
+    
+            circle_marker_c1f743c504d0dbccb6f105572f7201a0.bindTooltip(
+                `<div>
+                     臺大天文數學館南側 - 頻率: 2.62
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_c441c6867cc9a69b53eab373198a5d77.addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+            var feature_group_667d695332eb29219f0982dd4f6ab737 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_e8ef0d76385c2f870b290ce6f7dc7791 = L.circleMarker(
+                [25.01729, 121.54531],
+                {"bubblingMouseEvents": true, "color": "#00FF00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00FF00", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_667d695332eb29219f0982dd4f6ab737);
+        
+    
+        var popup_d233c58684c7440aef158227a5976cd6 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_d77c377fe07a77baa0ac86a2a68b89ec = $(`<div id="html_d77c377fe07a77baa0ac86a2a68b89ec" style="width: 100.0%; height: 100.0%;"><b>臺大男八舍東側</b><br>頻率一天: 1.00<br>補車量一天: 22.71<br>補車量總量: 704</div>`)[0];
+                popup_d233c58684c7440aef158227a5976cd6.setContent(html_d77c377fe07a77baa0ac86a2a68b89ec);
+            
+        
+
+        circle_marker_e8ef0d76385c2f870b290ce6f7dc7791.bindPopup(popup_d233c58684c7440aef158227a5976cd6)
+        ;
+
+        
+    
+    
+            circle_marker_e8ef0d76385c2f870b290ce6f7dc7791.bindTooltip(
+                `<div>
+                     臺大男八舍東側 - 低頻: 1.00
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fa343b21ad79b8ae30e4fe7ea6ae3e56 = L.circleMarker(
+                [25.01547, 121.53436],
+                {"bubblingMouseEvents": true, "color": "#00FF00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00FF00", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_667d695332eb29219f0982dd4f6ab737);
+        
+    
+        var popup_07192c77e166f769fc858ddf57453aa6 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_7f35ba98e0e88a4f406310b827f83660 = $(`<div id="html_7f35ba98e0e88a4f406310b827f83660" style="width: 100.0%; height: 100.0%;"><b>臺大大一女舍北側</b><br>頻率一天: 1.00<br>補車量一天: 24.35<br>補車量總量: 755</div>`)[0];
+                popup_07192c77e166f769fc858ddf57453aa6.setContent(html_7f35ba98e0e88a4f406310b827f83660);
+            
+        
+
+        circle_marker_fa343b21ad79b8ae30e4fe7ea6ae3e56.bindPopup(popup_07192c77e166f769fc858ddf57453aa6)
+        ;
+
+        
+    
+    
+            circle_marker_fa343b21ad79b8ae30e4fe7ea6ae3e56.bindTooltip(
+                `<div>
+                     臺大大一女舍北側 - 低頻: 1.00
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4e6edd12af4fbba4c8110ecd0b427322 = L.circleMarker(
+                [25.01576, 121.54291],
+                {"bubblingMouseEvents": true, "color": "#00FF00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00FF00", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_667d695332eb29219f0982dd4f6ab737);
+        
+    
+        var popup_b77c8c9a03da623d59dde3ab041f1c83 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_065e97e2c56be3c6515367b445b1cd0f = $(`<div id="html_065e97e2c56be3c6515367b445b1cd0f" style="width: 100.0%; height: 100.0%;"><b>臺大動物醫院前</b><br>頻率一天: 1.00<br>補車量一天: 8.77<br>補車量總量: 272</div>`)[0];
+                popup_b77c8c9a03da623d59dde3ab041f1c83.setContent(html_065e97e2c56be3c6515367b445b1cd0f);
+            
+        
+
+        circle_marker_4e6edd12af4fbba4c8110ecd0b427322.bindPopup(popup_b77c8c9a03da623d59dde3ab041f1c83)
+        ;
+
+        
+    
+    
+            circle_marker_4e6edd12af4fbba4c8110ecd0b427322.bindTooltip(
+                `<div>
+                     臺大動物醫院前 - 低頻: 1.00
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3a833746b633b477b107f298d5d7a061 = L.circleMarker(
+                [25.02101, 121.54284],
+                {"bubblingMouseEvents": true, "color": "#00FF00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00FF00", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_667d695332eb29219f0982dd4f6ab737);
+        
+    
+        var popup_fa339379272ca6d9a7b32cea920e598e = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_062ff123ac18f8b58a0159a0311ef611 = $(`<div id="html_062ff123ac18f8b58a0159a0311ef611" style="width: 100.0%; height: 100.0%;"><b>臺大社科院圖書館前</b><br>頻率一天: 1.00<br>補車量一天: 9.45<br>補車量總量: 293</div>`)[0];
+                popup_fa339379272ca6d9a7b32cea920e598e.setContent(html_062ff123ac18f8b58a0159a0311ef611);
+            
+        
+
+        circle_marker_3a833746b633b477b107f298d5d7a061.bindPopup(popup_fa339379272ca6d9a7b32cea920e598e)
+        ;
+
+        
+    
+    
+            circle_marker_3a833746b633b477b107f298d5d7a061.bindTooltip(
+                `<div>
+                     臺大社科院圖書館前 - 低頻: 1.00
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8bce5c9dd0ca2b6fa30269367d029555 = L.circleMarker(
+                [25.0222, 121.53626],
+                {"bubblingMouseEvents": true, "color": "#00FF00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00FF00", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_667d695332eb29219f0982dd4f6ab737);
+        
+    
+        var popup_1a4d2bc00a6a4d40811a17cf86f80e45 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_507d75c3b0501e82623e7c88f4fc567a = $(`<div id="html_507d75c3b0501e82623e7c88f4fc567a" style="width: 100.0%; height: 100.0%;"><b>臺大綜合體育館停車場前</b><br>頻率一天: 1.00<br>補車量一天: 7.48<br>補車量總量: 232</div>`)[0];
+                popup_1a4d2bc00a6a4d40811a17cf86f80e45.setContent(html_507d75c3b0501e82623e7c88f4fc567a);
+            
+        
+
+        circle_marker_8bce5c9dd0ca2b6fa30269367d029555.bindPopup(popup_1a4d2bc00a6a4d40811a17cf86f80e45)
+        ;
+
+        
+    
+    
+            circle_marker_8bce5c9dd0ca2b6fa30269367d029555.bindTooltip(
+                `<div>
+                     臺大綜合體育館停車場前 - 低頻: 1.00
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_667d695332eb29219f0982dd4f6ab737.addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+            var feature_group_df210970bebafda91a1ccc4a5e5951f3 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_942771f8fdaa83e6bf56b5347c78815a = L.circleMarker(
+                [25.01491, 121.53438],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.288, "stroke": true, "weight": 3}
+            ).addTo(feature_group_df210970bebafda91a1ccc4a5e5951f3);
+        
+    
+        var popup_c77f24e0783438398d2c3e081f2f7891 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_1e179c8ff08a00f8896cb38c29048b10 = $(`<div id="html_1e179c8ff08a00f8896cb38c29048b10" style="width: 100.0%; height: 100.0%;"><b>捷運公館站(2號出口)</b><br>頻率一天: 2.63<br>補車量一天: 149.81<br>補車量總量: 4644</div>`)[0];
+                popup_c77f24e0783438398d2c3e081f2f7891.setContent(html_1e179c8ff08a00f8896cb38c29048b10);
+            
+        
+
+        circle_marker_942771f8fdaa83e6bf56b5347c78815a.bindPopup(popup_c77f24e0783438398d2c3e081f2f7891)
+        ;
+
+        
+    
+    
+            circle_marker_942771f8fdaa83e6bf56b5347c78815a.bindTooltip(
+                `<div>
+                     捷運公館站(2號出口) - 補車量一天: 149.81
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7f15dbe5e85a35a29c961a68013d257c = L.circleMarker(
+                [25.01551, 121.53374],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.509999999999998, "stroke": true, "weight": 3}
+            ).addTo(feature_group_df210970bebafda91a1ccc4a5e5951f3);
+        
+    
+        var popup_7aa26ca9042435df07552e871bf3f778 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_682b1c5ccefa4ae200c559743ef5116b = $(`<div id="html_682b1c5ccefa4ae200c559743ef5116b" style="width: 100.0%; height: 100.0%;"><b>捷運公館站(3號出口)</b><br>頻率一天: 2.42<br>補車量一天: 137.26<br>補車量總量: 4255</div>`)[0];
+                popup_7aa26ca9042435df07552e871bf3f778.setContent(html_682b1c5ccefa4ae200c559743ef5116b);
+            
+        
+
+        circle_marker_7f15dbe5e85a35a29c961a68013d257c.bindPopup(popup_7aa26ca9042435df07552e871bf3f778)
+        ;
+
+        
+    
+    
+            circle_marker_7f15dbe5e85a35a29c961a68013d257c.bindTooltip(
+                `<div>
+                     捷運公館站(3號出口) - 補車量一天: 137.26
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3ea91fa54a8f2aaa686e69dfde7b3c6a = L.circleMarker(
+                [25.01295, 121.53973],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.258, "stroke": true, "weight": 3}
+            ).addTo(feature_group_df210970bebafda91a1ccc4a5e5951f3);
+        
+    
+        var popup_0b0f7b9eb8ca982c54ef48bc7619c1b7 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_a0a6d1e3a78317e7430aa81d0f4193f2 = $(`<div id="html_a0a6d1e3a78317e7430aa81d0f4193f2" style="width: 100.0%; height: 100.0%;"><b>臺灣科技大學側門</b><br>頻率一天: 1.35<br>補車量一天: 68.68<br>補車量總量: 2129</div>`)[0];
+                popup_0b0f7b9eb8ca982c54ef48bc7619c1b7.setContent(html_a0a6d1e3a78317e7430aa81d0f4193f2);
+            
+        
+
+        circle_marker_3ea91fa54a8f2aaa686e69dfde7b3c6a.bindPopup(popup_0b0f7b9eb8ca982c54ef48bc7619c1b7)
+        ;
+
+        
+    
+    
+            circle_marker_3ea91fa54a8f2aaa686e69dfde7b3c6a.bindTooltip(
+                `<div>
+                     臺灣科技大學側門 - 補車量一天: 68.68
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5c7efe7ac31a143f3e25fe3d477ddb40 = L.circleMarker(
+                [25.01937, 121.53902],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.154, "stroke": true, "weight": 3}
+            ).addTo(feature_group_df210970bebafda91a1ccc4a5e5951f3);
+        
+    
+        var popup_9927aef6fe313c069b2c7be563f5a9b9 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_6ee02cbe09eb54c650e7361422ba6794 = $(`<div id="html_6ee02cbe09eb54c650e7361422ba6794" style="width: 100.0%; height: 100.0%;"><b>臺大女九舍西南側</b><br>頻率一天: 2.33<br>補車量一天: 67.00<br>補車量總量: 2077</div>`)[0];
+                popup_9927aef6fe313c069b2c7be563f5a9b9.setContent(html_6ee02cbe09eb54c650e7361422ba6794);
+            
+        
+
+        circle_marker_5c7efe7ac31a143f3e25fe3d477ddb40.bindPopup(popup_9927aef6fe313c069b2c7be563f5a9b9)
+        ;
+
+        
+    
+    
+            circle_marker_5c7efe7ac31a143f3e25fe3d477ddb40.bindTooltip(
+                `<div>
+                     臺大女九舍西南側 - 補車量一天: 67.00
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6ba24f73d49435e09476b4108e60e882 = L.circleMarker(
+                [25.01511, 121.53786],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.783999999999999, "stroke": true, "weight": 3}
+            ).addTo(feature_group_df210970bebafda91a1ccc4a5e5951f3);
+        
+    
+        var popup_190f779b1f1bdbfd9d304c8174dc8aec = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_5bdc795bddee2b810b8cc336892877bf = $(`<div id="html_5bdc795bddee2b810b8cc336892877bf" style="width: 100.0%; height: 100.0%;"><b>臺大鹿鳴堂東側</b><br>頻率一天: 3.53<br>補車量一天: 61.03<br>補車量總量: 1892</div>`)[0];
+                popup_190f779b1f1bdbfd9d304c8174dc8aec.setContent(html_5bdc795bddee2b810b8cc336892877bf);
+            
+        
+
+        circle_marker_6ba24f73d49435e09476b4108e60e882.bindPopup(popup_190f779b1f1bdbfd9d304c8174dc8aec)
+        ;
+
+        
+    
+    
+            circle_marker_6ba24f73d49435e09476b4108e60e882.bindTooltip(
+                `<div>
+                     臺大鹿鳴堂東側 - 補車量一天: 61.03
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_df210970bebafda91a1ccc4a5e5951f3.addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+            var feature_group_c120941095a654334001dc43584fa7ad = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_3b57d9e587006548a968cc4d9a89a6fc = L.circleMarker(
+                [25.01627, 121.53535],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.296, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c120941095a654334001dc43584fa7ad);
+        
+    
+        var popup_f1546066087ca1f30efa6d18fe98abdb = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_e1d005eba31e99d82b72324c2920bb58 = $(`<div id="html_e1d005eba31e99d82b72324c2920bb58" style="width: 100.0%; height: 100.0%;"><b>臺大農化新館西側</b><br>頻率一天: 1.06<br>補車量一天: 4.77<br>補車量總量: 148</div>`)[0];
+                popup_f1546066087ca1f30efa6d18fe98abdb.setContent(html_e1d005eba31e99d82b72324c2920bb58);
+            
+        
+
+        circle_marker_3b57d9e587006548a968cc4d9a89a6fc.bindPopup(popup_f1546066087ca1f30efa6d18fe98abdb)
+        ;
+
+        
+    
+    
+            circle_marker_3b57d9e587006548a968cc4d9a89a6fc.bindTooltip(
+                `<div>
+                     臺大農化新館西側 - 低補車量一天: 4.77
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6d1d7c0c0d4500036990daa7da5bd689 = L.circleMarker(
+                [25.02153, 121.54299],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.304, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c120941095a654334001dc43584fa7ad);
+        
+    
+        var popup_fb8966d01280f900275bcbbbde7779aa = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_326a19837f05e87467b0adfcc33c91f4 = $(`<div id="html_326a19837f05e87467b0adfcc33c91f4" style="width: 100.0%; height: 100.0%;"><b>辛亥復興路口西北側</b><br>頻率一天: 1.00<br>補車量一天: 4.90<br>補車量總量: 152</div>`)[0];
+                popup_fb8966d01280f900275bcbbbde7779aa.setContent(html_326a19837f05e87467b0adfcc33c91f4);
+            
+        
+
+        circle_marker_6d1d7c0c0d4500036990daa7da5bd689.bindPopup(popup_fb8966d01280f900275bcbbbde7779aa)
+        ;
+
+        
+    
+    
+            circle_marker_6d1d7c0c0d4500036990daa7da5bd689.bindTooltip(
+                `<div>
+                     辛亥復興路口西北側 - 低補車量一天: 4.90
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3c5a4df21f759269d913674589f71833 = L.circleMarker(
+                [25.01539, 121.53686],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.318, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c120941095a654334001dc43584fa7ad);
+        
+    
+        var popup_dfbcb075e9ae7b079bd5a4c66b2ed036 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_054710ed5151c489311f903b6cf0f6c0 = $(`<div id="html_054710ed5151c489311f903b6cf0f6c0" style="width: 100.0%; height: 100.0%;"><b>臺大小小福西南側</b><br>頻率一天: 1.18<br>補車量一天: 5.13<br>補車量總量: 159</div>`)[0];
+                popup_dfbcb075e9ae7b079bd5a4c66b2ed036.setContent(html_054710ed5151c489311f903b6cf0f6c0);
+            
+        
+
+        circle_marker_3c5a4df21f759269d913674589f71833.bindPopup(popup_dfbcb075e9ae7b079bd5a4c66b2ed036)
+        ;
+
+        
+    
+    
+            circle_marker_3c5a4df21f759269d913674589f71833.bindTooltip(
+                `<div>
+                     臺大小小福西南側 - 低補車量一天: 5.13
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_363a18eecb82fc41433dac28ebe0dd68 = L.circleMarker(
+                [25.01537, 121.54698],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.342, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c120941095a654334001dc43584fa7ad);
+        
+    
+        var popup_787a58c177ae89a80b0ab20286b78e5c = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_98132f25947cac73a7b7e3a8720e3ab3 = $(`<div id="html_98132f25947cac73a7b7e3a8720e3ab3" style="width: 100.0%; height: 100.0%;"><b>臺大男七舍前</b><br>頻率一天: 1.00<br>補車量一天: 5.52<br>補車量總量: 171</div>`)[0];
+                popup_787a58c177ae89a80b0ab20286b78e5c.setContent(html_98132f25947cac73a7b7e3a8720e3ab3);
+            
+        
+
+        circle_marker_363a18eecb82fc41433dac28ebe0dd68.bindPopup(popup_787a58c177ae89a80b0ab20286b78e5c)
+        ;
+
+        
+    
+    
+            circle_marker_363a18eecb82fc41433dac28ebe0dd68.bindTooltip(
+                `<div>
+                     臺大男七舍前 - 低補車量一天: 5.52
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_13cfa98bddabbcf8d287013b12aacce0 = L.circleMarker(
+                [25.01616, 121.54251],
+                {"bubblingMouseEvents": true, "color": "#FFA500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA500", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.344, "stroke": true, "weight": 3}
+            ).addTo(feature_group_c120941095a654334001dc43584fa7ad);
+        
+    
+        var popup_630781c1b89093e70239f82f2228f686 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_3a1ff8ec7c575254b68bf24193be70aa = $(`<div id="html_3a1ff8ec7c575254b68bf24193be70aa" style="width: 100.0%; height: 100.0%;"><b>臺大立體機車停車場</b><br>頻率一天: 1.00<br>補車量一天: 5.55<br>補車量總量: 172</div>`)[0];
+                popup_630781c1b89093e70239f82f2228f686.setContent(html_3a1ff8ec7c575254b68bf24193be70aa);
+            
+        
+
+        circle_marker_13cfa98bddabbcf8d287013b12aacce0.bindPopup(popup_630781c1b89093e70239f82f2228f686)
+        ;
+
+        
+    
+    
+            circle_marker_13cfa98bddabbcf8d287013b12aacce0.bindTooltip(
+                `<div>
+                     臺大立體機車停車場 - 低補車量一天: 5.55
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_c120941095a654334001dc43584fa7ad.addTo(map_f45ed9847730851c129a85915e00b76a);
+        
+    
+            var layer_control_56f479561e57a5d01968a90769cba1cf_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_da3f185ce0a3778479c30fc4a91f251b,
+                },
+                overlays :  {
+                    "\u983b\u7387\u4e00\u5929 Top 5" : feature_group_c441c6867cc9a69b53eab373198a5d77,
+                    "\u983b\u7387\u4e00\u5929 Last 5" : feature_group_667d695332eb29219f0982dd4f6ab737,
+                    "\u88dc\u8eca\u91cf\u4e00\u5929 Top 5" : feature_group_df210970bebafda91a1ccc4a5e5951f3,
+                    "\u88dc\u8eca\u91cf\u4e00\u5929 Last 5" : feature_group_c120941095a654334001dc43584fa7ad,
+                },
+            };
+            let layer_control_56f479561e57a5d01968a90769cba1cf = L.control.layers(
+                layer_control_56f479561e57a5d01968a90769cba1cf_layers.base_layers,
+                layer_control_56f479561e57a5d01968a90769cba1cf_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_f45ed9847730851c129a85915e00b76a);
+
+        
+</script>
+</html>

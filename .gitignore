@@ -4,12 +4,13 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 
-
-
+## ignore processed code
+/data/result/draw.py
+data\\result\\station_restock_summary.csv
 # Ignore raw and processed data folders
 data/raw/
 data\\processed\\processed_code
-
+draw.py
 
 # User-specific files
 *.rsuser
