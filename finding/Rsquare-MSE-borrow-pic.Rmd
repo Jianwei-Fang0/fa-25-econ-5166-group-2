@@ -1,0 +1,312 @@
+```{r}
+# borrow_count的圖
+library(ggplot2)
+library(dplyr)
+
+
+# p1
+df_r2 <- metrics_summary_min %>%
+  filter(target == "borrow_count") %>%
+  arrange(desc(R2_pooled))
+
+ggplot(df_r2, aes(x = reorder(station, R2_pooled), y = R2_pooled)) +
+  geom_col(fill = "#3A6EA5") +
+  coord_flip() +
+  labs(title = "各站點 RF 模型 R²（borrow_count）",
+       x = "站點",
+       y = "R²") +
+  theme_minimal(base_size = 14)
+
+
+# p2a
+df_mae <- metrics_summary_min %>%
+  filter(target == "borrow_count")
+
+ggplot(df_mae, aes(x = station, y = MAE_weighted)) +
+  geom_boxplot(fill = "#F2B880") +
+  coord_flip() +
+  labs(title = "各站點 MAE（borrow_count）",
+       x = "站點",
+       y = "MAE（平均誤差台數）") +
+  theme_minimal(base_size = 14)
+
+
+# p2b
+ggplot(df_mae, aes(x = reorder(station, MAE_weighted), y = MAE_weighted)) +
+  geom_col(fill = "#F2A649") +
+  coord_flip() +
+  labs(title = "各站點 MAE（borrow_count）",
+       x = "站點",
+       y = "MAE（平均預測錯誤台數）") +
+  theme_minimal(base_size = 14)
+
+
+# p3
+df_avg <- df_merged %>%
+  group_by(station) %>%
+  summarise(avg_borrow = mean(borrow_count, na.rm = TRUE))
+
+df_r2_join <- df_r2 %>% left_join(df_avg, by = "station")
+
+ggplot(df_r2_join, aes(x = avg_borrow, y = R2_pooled)) +
+  geom_point(color = "#6A4C93", size = 3, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, color = "gray40") +
+  labs(
+    title = "R² vs 平均借車量",
+    x = "平均借車量（每小時）",
+    y = "R²"
+  ) +
+  theme_minimal(base_size = 14)
+
+```
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# 只取 borrow_count，順便排除 NA
+
+df_borrow <- metrics_summary_min %>%
+filter(target == "borrow_count",
+!is.na(R2_pooled),
+!is.na(MAE_weighted))
+
+# p1：各站點 R²（bar chart）
+
+ggplot(df_borrow,
+aes(x = reorder(station, R2_pooled), y = R2_pooled)) +
+geom_col(fill = "#3A6EA5") +
+coord_flip() +
+labs(
+title = "各站點 RF 模型 R²（borrow_count）",
+x = "站點",
+y = "R²"
+) +
+theme_minimal(base_size = 14)
+
+# p2：各站點 MAE（bar chart）
+
+ggplot(df_borrow,
+aes(x = reorder(station, MAE_weighted), y = MAE_weighted)) +
+geom_col(fill = "#F2A649") +
+coord_flip() +
+labs(
+title = "各站點 MAE（borrow_count）",
+x = "站點",
+y = "MAE（平均預測錯誤台數）"
+) +
+theme_minimal(base_size = 14)
+
+# p3：R² vs 平均借車量（scatter）
+
+df_avg_borrow <- df_merged %>%
+group_by(station) %>%
+summarise(avg_borrow = mean(borrow_count, na.rm = TRUE), .groups = "drop")
+
+df_r2_join_borrow <- df_borrow %>%
+left_join(df_avg_borrow, by = "station")
+
+ggplot(df_r2_join_borrow,
+aes(x = avg_borrow, y = R2_pooled)) +
+geom_point(color = "#6A4C93", size = 3, alpha = 0.8) +
+geom_smooth(method = "lm", se = FALSE, color = "gray40") +
+labs(
+title = "R² vs 平均借車量（borrow_count）",
+x = "平均借車量（每小時）",
+y = "R²"
+) +
+theme_minimal(base_size = 14)
+
+```
+```{r}
+# return_count的圖
+library(ggplot2)
+library(dplyr)
+
+
+# p1
+df_r2 <- metrics_summary_min %>%
+  filter(target == "return_count") %>%
+  arrange(desc(R2_pooled))
+
+ggplot(df_r2, aes(x = reorder(station, R2_pooled), y = R2_pooled)) +
+  geom_col(fill = "#3A6EA5") +
+  coord_flip() +
+  labs(title = "各站點 RF 模型 R²（return_count）",
+       x = "站點",
+       y = "R²") +
+  theme_minimal(base_size = 14)
+
+
+# p2a
+df_mae <- metrics_summary_min %>%
+  filter(target == "return_count")
+
+ggplot(df_mae, aes(x = station, y = MAE_weighted)) +
+  geom_boxplot(fill = "#F2B880") +
+  coord_flip() +
+  labs(title = "各站點 MAE（return_count）",
+       x = "站點",
+       y = "MAE（平均誤差台數）") +
+  theme_minimal(base_size = 14)
+
+
+# p2b
+ggplot(df_mae, aes(x = reorder(station, MAE_weighted), y = MAE_weighted)) +
+  geom_col(fill = "#F2A649") +
+  coord_flip() +
+  labs(title = "各站點 MAE（return_count）",
+       x = "站點",
+       y = "MAE（平均預測錯誤台數）") +
+  theme_minimal(base_size = 14)
+
+```
+```{r}
+library(ggplot2)
+library(dplyr)
+
+df_return <- metrics_summary_min %>%
+filter(target == "return_count",
+!is.na(R2_pooled),
+!is.na(MAE_weighted))
+
+# p1：各站點 R²
+
+ggplot(df_return,
+aes(x = reorder(station, R2_pooled), y = R2_pooled)) +
+geom_col(fill = "#3A6EA5") +
+coord_flip() +
+labs(
+title = "各站點 RF 模型 R²（return_count）",
+x = "站點",
+y = "R²"
+) +
+theme_minimal(base_size = 14)
+
+# p2：各站點 MAE
+
+ggplot(df_return,
+aes(x = reorder(station, MAE_weighted), y = MAE_weighted)) +
+geom_col(fill = "#F2A649") +
+coord_flip() +
+labs(
+title = "各站點 MAE（return_count）",
+x = "站點",
+y = "MAE（平均預測錯誤台數）"
+) +
+theme_minimal(base_size = 14)
+
+```
+```{r}
+# net_borrow的圖
+library(ggplot2)
+library(dplyr)
+
+
+# p1
+df_r2 <- metrics_summary_min %>%
+  filter(target == "net_borrow") %>%
+  arrange(desc(R2_pooled))
+
+ggplot(df_r2, aes(x = reorder(station, R2_pooled), y = R2_pooled)) +
+  geom_col(fill = "#3A6EA5") +
+  coord_flip() +
+  labs(title = "各站點 RF 模型 R²（net_borrow）",
+       x = "站點",
+       y = "R²") +
+  theme_minimal(base_size = 14)
+
+
+# p2a
+df_mae <- metrics_summary_min %>%
+  filter(target == "net_borrow")
+
+ggplot(df_mae, aes(x = station, y = MAE_weighted)) +
+  geom_boxplot(fill = "#F2B880") +
+  coord_flip() +
+  labs(title = "各站點 MAE（net_borrow）",
+       x = "站點",
+       y = "MAE（平均誤差台數）") +
+  theme_minimal(base_size = 14)
+
+
+# p2b
+ggplot(df_mae, aes(x = reorder(station, MAE_weighted), y = MAE_weighted)) +
+  geom_col(fill = "#F2A649") +
+  coord_flip() +
+  labs(title = "各站點 MAE（net_borrow）",
+       x = "站點",
+       y = "MAE（平均預測錯誤台數）") +
+  theme_minimal(base_size = 14)
+
+```
+```{r}
+library(ggplot2)
+library(dplyr)
+
+df_net <- metrics_summary_min %>%
+filter(target == "net_borrow",
+!is.na(R2_pooled),
+!is.na(MAE_weighted))
+
+# p1：各站點 R²
+
+ggplot(df_net,
+aes(x = reorder(station, R2_pooled), y = R2_pooled)) +
+geom_col(fill = "#3A6EA5") +
+coord_flip() +
+labs(
+title = "各站點 RF 模型 R²（net_borrow）",
+x = "站點",
+y = "R²"
+) +
+theme_minimal(base_size = 14)
+
+# p2：各站點 MAE
+
+ggplot(df_net,
+aes(x = reorder(station, MAE_weighted), y = MAE_weighted)) +
+geom_col(fill = "#F2A649") +
+coord_flip() +
+labs(
+title = "各站點 MAE（net_borrow）",
+x = "站點",
+y = "MAE（平均預測錯誤台數）"
+) +
+theme_minimal(base_size = 14)
+
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+ggplot(df_pred, aes(x = actual, y = predicted)) +
+  geom_point(alpha = 0.4) +
+  geom_abline(intercept = 0, slope = 1, color = "red") +
+  labs(title="Actual vs Predicted Borrow Count",
+       x="Actual", y="Predicted") +
+  theme_minimal()
+
+
+
+ggplot(df_pred, aes(x = residual)) +
+  geom_histogram(bins = 40, fill="#F2A649", color="white") +
+  labs(title="Residual Distribution", x="Residual", y="Count") +
+  theme_minimal()
+
+
+
+ggplot(df_plot, aes(x = datetime)) +
+  geom_line(aes(y = actual), color="black") +
+  geom_line(aes(y = predicted), color="blue") +
+  labs(title="Actual vs Predicted (Station X)",
+       y="Borrow Count") +
+  theme_minimal()
+
+
+
+importance(rf_model)
+
+varImpPlot(rf_model)
+
+```
