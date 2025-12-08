@@ -1,0 +1,131 @@
+設定dummy variable + 畫密度圖
+```{r}
+
+#分組設定dummy variable
+df_merged <- df_merged %>%
+  mutate(
+    rain_any     = as.integer(rainfall > 0),   # 有下雨 = 1（無 = 0）
+    temp_hot     = as.integer(temperature > 25),     # 熱天（>25℃） = 1
+    wind_strong  = as.integer(wind_speed > 3)     # 風大（>3m/s） = 1
+  )
+
+df_merged %>%
+  group_by(rain_any) %>%
+  summarise(
+    median_borrow = median(borrow_count),
+    n = n() 
+  )
+
+df_merged %>%
+  group_by(temp_hot) %>%
+  summarise(
+    median_borrow = median(borrow_count),
+    n = n()
+  )
+
+df_merged %>%
+  group_by(wind_strong) %>%
+  summarise(
+    median_borrow = median(borrow_count),
+    n = n()
+  )
+
+
+# 計算各組的中位數
+medr <- df_merged %>%
+  group_by(rain_any) %>%
+  summarise(med = median(borrow_count, na.rm = TRUE))
+
+medt <- df_merged %>%
+  group_by(temp_hot) %>%
+  summarise(med = median(borrow_count, na.rm = TRUE))
+
+medw <- df_merged %>%
+  group_by(wind_strong) %>%
+  summarise(med = median(borrow_count, na.rm = TRUE))
+
+# 畫密度圖 + 中位數虛線（加寬）
+ggplot(df_merged, aes(x = borrow_count, fill = factor(rain_any))) +
+  geom_density(alpha = 0.5) +
+  geom_vline(data = medr, aes(xintercept = med, color = factor(rain_any)),
+             linetype = "dashed", size = 1.2, show.legend = FALSE) +
+  labs(title = "borrow_count vs is_rain", fill = "is_rain") +
+  scale_x_continuous(breaks = seq(0, 150, 10), limits = c(0, 50)) +
+  coord_cartesian(ylim = c(0, 0.1)) +
+  theme_minimal()
+
+ggplot(df_merged, aes(x = borrow_count, fill = factor(temp_hot))) +
+  geom_density(alpha = 0.5) +
+  geom_vline(data = medt, aes(xintercept = med, color = factor(temp_hot)),
+             linetype = "dashed", size = 1.2, show.legend = FALSE) +
+  labs(title = "borrow_count vs is_temp_hot", fill = "is_temp_hot") +
+  scale_x_continuous(breaks = seq(0, 150, 10), limits = c(0, 50)) +
+  coord_cartesian(ylim = c(0, 0.1)) +
+  theme_minimal()
+
+ggplot(df_merged, aes(x = borrow_count, fill = factor(wind_strong))) +
+  geom_density(alpha = 0.5) +
+  geom_vline(data = medw, aes(xintercept = med, color = factor(wind_strong)),
+             linetype = "dashed", size = 1.2, show.legend = FALSE) +
+  labs(title = "borrow_count vs is_wind_strong", fill = "is_wind_strong") +
+  scale_x_continuous(breaks = seq(0, 150, 10), limits = c(0, 50)) +
+  coord_cartesian(ylim = c(0, 0.1)) +
+  theme_minimal()
+```
+```{r}
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# 🚉 先篩選指定站名
+df_single <- df_merged %>%
+  filter(station == "捷運公館站(2號出口)")
+
+# 1️⃣ 長表
+base <- df_single |>
+  pivot_longer(c(borrow_count, net_borrow),
+               names_to = "variable", values_to = "value") |>
+  mutate(weekend = factor(weekend, c(0,1), c("weekday","weekend")))
+
+# 2️⃣ 每面板各自的中心視窗（例：P10~P90）
+rng <- base |>
+  group_by(variable) |>
+  summarise(lo = quantile(value, 0.05, na.rm = TRUE),
+            hi = quantile(value, 0.95, na.rm = TRUE),
+            .groups = "drop")
+
+base_zoom <- base |>
+  inner_join(rng, by = "variable") |>
+  filter(value >= lo, value <= hi)
+
+# 3️⃣ 「用全資料」計算中位數（推薦）
+meds <- base |>
+  group_by(variable, weekend) |>
+  summarise(median_val = median(value, na.rm = TRUE), .groups = "drop")
+
+# 4️⃣ 繪圖：放大 + 中位數虛線 + 中位數標籤
+ggplot(base_zoom, aes(x = value, fill = weekend)) +
+  geom_density(alpha = 0.45, adjust = 1, position = "identity") +
+  geom_vline(data = meds, aes(xintercept = median_val, color = weekend),
+             linetype = "dotdash", linewidth = 0.8, show.legend = FALSE) +
+  geom_text(data = meds,
+            aes(x = median_val, y = 0,
+                label = paste0("median=", round(median_val, 1)),
+                color = weekend),
+            angle = 90, vjust = -0.6, size = 3, show.legend = FALSE) +
+  facet_wrap(~ variable, scales = "free_x",
+             labeller = as_labeller(c(
+               borrow_count = "borrow_count",
+               net_borrow = "net_borrow"
+             ))) +
+  scale_fill_manual(values = c("gray70", "firebrick"), name = "weekend") +
+  scale_color_manual(values = c("gray40", "firebrick")) +
+  labs(
+    title = "捷運公館站(2號出口) — weekend vs weekday",
+    x = NULL, y = "Density"
+  ) +
+  theme_minimal(base_size = 15)
+
+
+```
