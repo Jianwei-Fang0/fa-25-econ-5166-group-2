@@ -1,0 +1,22 @@
+統計降水量、氣溫、風速分佈
+```{r}
+library(ggplot2)
+
+df_merged$rainfall[is.na(df_merged$rainfall)] <- 0
+df_merged$rainfall <- as.numeric(df_merged$rainfall)
+ggplot(df_merged, aes(x = rainfall)) +
+  geom_histogram(bins = 30, fill = "steelblue")
+
+df_merged$temperature <- as.numeric(df_merged$temperature)
+ggplot(df_merged, aes(x = temperature)) +
+  geom_histogram(bins = 30, fill = "steelblue")
+
+df_merged$wind_speed <- as.numeric(df_merged$wind_speed)
+ggplot(df_merged, aes(x = wind_speed)) +
+  geom_histogram(bins = 30, fill = "steelblue")
+
+summary(df_merged$rainfall)
+summary(df_merged$temperature)
+summary(df_merged$wind_speed)
+
+```
