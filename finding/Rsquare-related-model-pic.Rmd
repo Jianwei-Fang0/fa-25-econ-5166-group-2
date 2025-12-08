@@ -1,0 +1,232 @@
+```{r}
+
+# ============================================================
+# 📌 Phase 1 — 模型評估與資料視覺化
+# ============================================================
+
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(tidyr)
+
+#--------------------------------------------------------------
+# 1) 匯入最新 R2_CV（cross-validation）數據
+#--------------------------------------------------------------
+df_cv <- read_csv("R2_CV.csv")
+
+# 借車量的 CV R²
+df_cv_borrow <- df_cv %>% filter(target == "borrow_count")
+
+#--------------------------------------------------------------
+# 2) 匯入 12 月預測結果（真正 OOS）
+#--------------------------------------------------------------
+df_dec <- read_csv("R2_m12.csv")
+
+df_dec_borrow <- df_dec %>% filter(target == "borrow_count")
+
+#--------------------------------------------------------------
+# 3) R² vs 平均借車量（預測力與 demand 的關係）
+#--------------------------------------------------------------
+df_flow <- read_csv("df_merged.csv")
+
+#--------------------------------------------------------------
+# 4) 預測 vs 實際散佈圖（12 月）
+#--------------------------------------------------------------
+
+library(ggrepel)
+
+# 先定義最佳/最差站（用絕對誤差）
+df_m12_target <- df_m12_target %>%
+  mutate(err = abs(borrow_pred - borrow_count))
+
+best  <- df_m12_target %>% arrange(err) %>% slice(1:30)
+worst <- df_m12_target %>% arrange(desc(err)) %>% slice(1:30)
+
+p <- ggplot(df_m12_target, aes(x = borrow_count, y = borrow_pred)) +
+  geom_point(alpha = 0.25, size = 1.2, color = "#2C7BB6") +  # 原始點
+
+  # 完美線
+  geom_abline(intercept = 0, slope = 1, color = "red", linewidth = 1) +
+  geom_smooth(method = "lm", se = FALSE, color = "orange") +
+
+  # 標示最佳/最差
+  geom_point(data = best, aes(x = borrow_count, y = borrow_pred),
+             color = "green3", size = 3) +
+  geom_label_repel(
+      data = best,
+      aes(label = station, x = borrow_count, y = borrow_pred),
+      color = "green3", size = 3, box.padding = 0.3
+  ) +
+
+  geom_point(data = worst, aes(x = borrow_count, y = borrow_pred),
+             color = "red3", size = 3) +
+  geom_label_repel(
+      data = worst,
+      aes(label = station, x = borrow_count, y = borrow_pred),
+      color = "red3", size = 3, box.padding = 0.3
+  ) +
+
+  labs(
+    title = "Predicted vs Actual (Borrow Count, 12月)",
+    x = "Actual Borrow Count",
+    y = "Predicted Borrow Count"
+  ) +
+  theme_minimal(base_size = 16)
+
+
+# 儲存圖片
+ggsave("fig_pred_vs_actual_borrow.png", p,
+       width = 10, height = 7, dpi = 300)
+
+# ----------- 圖存在 plot variable 裡面 -----------
+
+
+# 讀檔
+library(ggrepel)
+
+df_cv <- read_csv("R2_CV.csv", show_col_types = FALSE) %>%
+  filter(target == "borrow_count") %>%
+  select(station, R2_cv = R2)
+
+df_oos <- read_csv("R2_m12.csv", show_col_types = FALSE) %>%
+  filter(target == "borrow_count") %>%
+  select(station, R2_oos = R2_12m)
+
+df_join <- inner_join(df_cv, df_oos, by = "station")
+
+# Top & Bottom 站點
+df_label2 <- df_join %>%
+  arrange(desc(R2_oos)) %>%
+  slice(c(1:5, (n()-4):n()))
+
+p <- ggplot(df_join, aes(x = R2_cv, y = R2_oos)) +
+  geom_point(size = 3, alpha = 0.5, color = "#5A3E85") +
+
+  geom_point(data = df_label2, 
+             aes(x = R2_cv, y = R2_oos),
+             color = "red", size = 3) +
+
+  geom_text_repel(
+    data = df_label2,
+    aes(label = station),
+    color = "red",
+    size = 3,
+    max.overlaps = Inf
+  ) +
+
+  geom_abline(intercept = 0, slope = 1, color = "red", linewidth = 1) +
+
+  labs(
+    title = "CV R² vs OOS R²（標示預測最佳/最差站）",
+    x = "Cross-Validation R²（9–11 月）",
+    y = "OOS R²（12 月預測）"
+  ) +
+  theme_minimal(base_size = 16)
+
+ggsave(
+  filename = "cv_vs_oos_R2.png",
+  plot = p,
+  width = 10,
+  height = 7,
+  dpi = 300
+)
+
+# ----------- 圖存在 plot variable 裡面 -----------
+
+library(ggrepel)
+
+df_cap <- read_csv("df_merged.csv") %>%
+  select(station, total) %>% distinct()
+
+df_r2_cap <- df_oos %>%
+  left_join(df_cap, by = "station") %>%
+  distinct()
+
+df_label3 <- df_r2_cap %>%
+  arrange(desc(total)) %>%
+  slice(c(1:3)) %>%       # capacity 最大站
+  bind_rows(
+    df_r2_cap %>% 
+      arrange(R2_oos) %>% 
+      slice(1:3)          # 表現最差站
+  )
+
+p <- ggplot(df_r2_cap, aes(x = total, y = R2_oos)) +
+  geom_point(size = 3, alpha = 0.6, color = "#2A5783") +
+
+  geom_point(data = df_label3,
+             aes(x = total, y = R2_oos),
+             color = "red", size = 3) +
+
+  geom_text_repel(
+    data = df_label3,
+    aes(label = station),
+    color = "red", size = 3
+  ) +
+
+  geom_smooth(method = "lm", se = FALSE, color = "red", linewidth = 1) +
+  
+  labs(
+    title = "OOS R² vs Capacity（標示容量最大/預測最差站）",
+    x = "Station Capacity (total)",
+    y = "OOS R² (12 月預測)"
+  ) +
+  theme_minimal(base_size = 16)
+
+
+# 若你想直接存圖
+ggsave("R2_vs_capacity.png", p, width = 8, height = 6, dpi = 300)
+
+
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+# 讀取 12 月預測 R2
+df_oos <- read_csv("R2_m12.csv", show_col_types = FALSE) %>%
+  filter(target == "borrow_count") %>%
+  select(station, R2_oos = R2_12m)
+
+# 讀平均借車量
+df_avg <- read_csv("df_merged.csv", show_col_types = FALSE) %>%
+  group_by(station) %>%
+  summarise(avg_borrow = mean(borrow_count, na.rm = TRUE))
+
+# 合併
+df_join <- df_oos %>% inner_join(df_avg, by = "station")
+
+# 找前 5 和後 5
+top5  <- df_join %>% arrange(desc(R2_oos)) %>% slice(1:5)
+bottom5 <- df_join %>% arrange(R2_oos) %>% slice(1:5)
+
+# 畫圖
+p <- ggplot(df_join, aes(x = avg_borrow, y = R2_oos)) +
+  geom_point(size = 3, alpha = 0.6, color = "#5A3E85") +
+  geom_smooth(method = "lm", se = FALSE, color = "black", linewidth = 1) +
+
+  # 標示預測最好的站：綠色
+  geom_point(data = top5, aes(x = avg_borrow, y = R2_oos), 
+             color = "red3", size = 4) +
+  geom_text(data = top5, 
+            aes(label = station), 
+            color = "red3", nudge_y = 0.02, size = 3.5) +
+
+  # 標示預測最差的站：紅色
+  geom_point(data = bottom5, aes(x = avg_borrow, y = R2_oos), 
+             color = "red3", size = 4) +
+  geom_text(data = bottom5, 
+            aes(label = station), 
+            color = "red3", nudge_y = -0.02, size = 3.5) +
+
+  labs(
+    title = "OOS R² vs 平均借車量（標示預測最佳/最差站）",
+    x = "平均借車量",
+    y = "OOS R²（12 月預測）"
+  ) +
+  theme_minimal(base_size = 15)
+
+ggsave("R2_vs_avg_borrow_annotated.png", p,
+       width = 9, height = 6, dpi = 300)
+print(p)
+
+```
