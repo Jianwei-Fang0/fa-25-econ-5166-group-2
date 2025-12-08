@@ -1,0 +1,120 @@
+```{r}
+library(readr)
+library(dplyr)
+library(data.table)
+library(ranger)
+
+df_merged <- read_csv("df_merged.csv", show_col_types = FALSE)
+df_m12    <- read_csv("df_m12_target.csv", show_col_types = FALSE)
+
+dt     <- as.data.table(df_merged)
+dt_m12 <- as.data.table(df_m12)
+
+feature_cols <- c(
+  "is_peak_morning","is_peak_evening","is_peak_noon","is_peak_any","is_night",
+  "is_weekend","is_holiday","is_dayoff",
+  "station_pressure","temperature","humidity","wind_speed",
+  "max_wind_speed","rainfall","solar_radiation",
+  "total","inventory","neighbor_inventory_450m"
+)
+
+targets  <- c("borrow_count", "return_count", "net_borrow")
+stations <- unique(dt$station)
+
+if (!dir.exists("models")) dir.create("models")
+
+set.seed(888)
+
+for (st in stations) {
+
+  train <- dt[station == st]
+  test  <- dt_m12[station == st]
+
+  if (nrow(train) < 50 || nrow(test) < 3) next
+
+  for (y in targets) {
+    train_y <- train[, c(y, feature_cols), with = FALSE]
+
+    fml <- as.formula(paste(y, "~", paste(feature_cols, collapse = " + ")))
+
+    rf <- ranger(
+      formula = fml,
+      data    = train_y,
+      num.trees = 800,
+      importance = "permutation",
+      respect.unordered.factors = "order",
+      seed = 888
+    )
+
+    saveRDS(rf, paste0("models/model_", st, "_", y, ".rds"))
+    cat("✔ saved:", st, "/", y, "\n")
+  }
+}
+
+
+library(purrr)
+
+get_imp_one <- function(st, y) {
+  model_path <- paste0("models/model_", st, "_", y, ".rds")
+  if (!file.exists(model_path)) return(NULL)
+
+  rf <- readRDS(model_path)
+
+  vi <- rf$variable.importance
+  if (is.null(vi) || length(vi) == 0) return(NULL)
+
+  tibble(
+    station    = st,
+    target     = y,
+    feature    = names(vi),
+    importance = as.numeric(vi)
+  )
+}
+
+df_importance <- map_df(targets, function(y) {
+  map_df(stations, function(st) get_imp_one(st, y))
+})
+
+glimpse(df_importance)
+
+```
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# ---- 1. 計算「每個 feature 在每個 target」的平均重要性 ----
+df_imp_avg <- df_importance %>%
+  group_by(target, feature) %>%
+  summarise(mean_importance = mean(importance, na.rm = TRUE), .groups = "drop")
+
+# ---- 2. 讓 feature 的排序在三張圖中一致（依 borrow_count 排）----
+feature_order <- df_imp_avg %>%
+  filter(target == "borrow_count") %>%
+  arrange(desc(mean_importance)) %>%
+  pull(feature)
+
+df_imp_avg$feature <- factor(df_imp_avg$feature, levels = feature_order)
+
+# ---- 3. 畫 facet 大圖 ----
+p <- ggplot(df_imp_avg,
+            aes(x = feature, y = mean_importance)) +
+  geom_col(fill = "#4A7BB7") +
+  coord_flip() +
+  facet_wrap(~ target, scales = "free_x") +
+  labs(
+    title = "Feature Importance Across Targets (Permutation Importance)",
+    x = "Feature",
+    y = "Average Importance"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 18),
+    strip.text = element_text(face = "bold", size = 14)
+  )
+
+print(p)
+
+ggsave("importance_facet_all_targets.png", p,
+       width = 12, height = 8, dpi = 300)
+
+```
