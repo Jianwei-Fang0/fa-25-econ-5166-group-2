@@ -34,10 +34,23 @@ the folder `notebook-templates` contains the jupyter notebooks and R markdown ex
 ## Each Member's Key Contribution
 After the poster presentation, please highlight each member's key contribution to the project. Please include the link to specific commits (e.g., a page like [this](https://github.com/yu-chang-chen/FA25-ECON-5166-Group-Project-Template/commit/29e276672f667af5cd7b198871033748fc3ec3ee)) for my reference.
 
+**`<方建幃>`**'s contribution
+- `<處理台大周遭youbike站點資料>` [10ac598](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/10ac5988c45a19635b39f52870e280f113536336)
+- `<處理各月流量 >` [5b0d71b](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/5b0d71bfb56ab9ddfc05ad1efa9bd2aa17a2c9d5)
+- `<增加站點距離矩陣 >` [043ac97](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/043ac9761b79d2e3b8ddcb13b557d5c34c72096e)
+- `<update template >` [11050ff](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/11050ff13e49af952a7d0735ff5db809d82b9396)
+- `<加入國定假日和周休二日等判別 >` [158a713](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/158a7133ddc10a227c0bb06b2bce1d3a5644c946)
+- `<檢查資料完整性、加入存量、鄰近車站存量>` [5826b70][78cbcb2][52f31b3](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/52f31b309296f162b9df09dc2d1197a8e98155a1)
+- `<增加展示圖片>` [03b411d](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/03b411d52bd6f0f9f732240d31a85f9a3f62e8d0)
+  
 **`<NAME>`**'s contribution
+- `<Contribution >` [see commit](url)
+- `<Contribution >` [see commit](url)
+- 
+**`<>`**'s contribution
 - `<Contribution >` [see commit](url)
 - `<Contribution >` [see commit](url)
 
-**`<NAME>`**'s contribution
+**`<>`**'s contribution
 - `<Contribution >` [see commit](url)
 - `<Contribution >` [see commit](url)
