@@ -44,7 +44,7 @@ After the poster presentation, please highlight each member's key contribution t
 - `<增加展示圖片>` [03b411d](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/03b411d52bd6f0f9f732240d31a85f9a3f62e8d0)
   
 **`<王薏茹>`**'s contribution
-- `<統計天氣資料 >` [c6a19ada23a950432e737a66f12a349857638cfc](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/blob/main/finding/weather-stats.Rmd)
+- `<統計天氣資料 >` [weather-stats](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/blob/main/finding/weather-stats.Rmd)
 - `<切分dummy variable並將天氣資料畫密度圖 >` [see commit](url)
 - `<切分dummy variable並將是否假日資料畫密度圖 >` [see commit](url)
 - `<繪製各站點在不同應變數(借車量、還車量、淨借車量)情況下的預測力、誤差及借車量vs預測力的圖 >` [see commit](url)
