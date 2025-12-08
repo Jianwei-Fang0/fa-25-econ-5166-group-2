@@ -1,0 +1,72 @@
+```{r}
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+df_metrics_dec <- read_csv("df_metrics_dec.csv", show_col_types = FALSE)
+
+# 只取要比較的三欄：target 與 12 月的 R²
+df_r2_compare <- df_metrics_dec %>%
+  select(target, R2_12m)
+
+# ---- 繪製 seaborn 風格的箱型圖 + 散點 ----
+p <- ggplot(df_r2_compare, aes(x = target, y = R2_12m, fill = target)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA) +
+  geom_jitter(width = 0.2, alpha = 0.2, size = 1.8) +
+  scale_fill_manual(values = c(
+    "borrow_count" = "#4A7BB7",
+    "return_count" = "#75A661",
+    "net_borrow"   = "#E39D44"
+  )) +
+  labs(
+    title = "Model Predictive Performance Comparison across Targets",
+    x = "Target Variable",
+    y = "OOS R² (12 月預測)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "none"
+  )
+
+print(p)
+
+ggsave("compare_targets_R2.png", p,
+       width = 10, height = 6, dpi = 300)
+```
+```{r}
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+df_metrics_dec <- read_csv("df_metrics_dec.csv", show_col_types = FALSE)
+
+# 只取要比較的三欄：target 與 12 月的 R²
+df_r2_compare <- df_metrics_dec %>%
+  select(target, R2_12m)
+
+# ---- 繪製 seaborn 風格的箱型圖 + 散點 ----
+p <- ggplot(df_r2_compare, aes(x = target, y = R2_12m, fill = target)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA) +
+  geom_jitter(width = 0.2, alpha = 0.2, size = 1.8) +
+  scale_fill_manual(values = c(
+    "borrow_count" = "#4A7BB7",
+    "return_count" = "#75A661",
+    "net_borrow"   = "#E39D44"
+  )) +
+  labs(
+    title = "Model Predictive Performance Comparison across Targets",
+    x = "Target Variable",
+    y = "OOS R² (12 月預測)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "none"
+  )
+
+print(p)
+
+ggsave("compare_targets_R2.png", p,
+       width = 10, height = 6, dpi = 300)
+```
