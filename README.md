@@ -53,8 +53,8 @@ After the poster presentation, please highlight each member's key contribution t
 - `<繪製比較不同應變數(借車量、還車量、淨借車量)情況下的預測力的圖 >` [see commit](url)
   
 **`<吳祐儀>`**'s contribution
-- `<建立會議記錄檔案、撰寫會議記錄>` [826be0a](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/826be0afd887a96cda59eedaf7963ea5d3edf0b1)
-- `<Contribution >` [9c50d3c](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/9c50d3c866232052cea4abbe98649913a324dc50)
+- `<建立會議記錄檔案>` [826be0a](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/826be0afd887a96cda59eedaf7963ea5d3edf0b1)
+- `<撰寫會議記錄>` [9c50d3c](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/9c50d3c866232052cea4abbe98649913a324dc50)
 
 **`<>`**'s contribution
 - `<Contribution >` [see commit](url)
