@@ -44,13 +44,12 @@ After the poster presentation, please highlight each member's key contribution t
 - `<增加展示圖片>` [03b411d](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/03b411d52bd6f0f9f732240d31a85f9a3f62e8d0)
   
 **`<王薏茹>`**'s contribution
-- `<統計天氣資料 >` [weather-stats](c6a19ada23a950432e737a66f12a349857638cfc)
-- `<切分dummy variable並將天氣資料畫密度圖 >` [see commit](url)
-- `<切分dummy variable並將是否假日資料畫密度圖 >` [see commit](url)
-- `<繪製各站點在不同應變數(借車量、還車量、淨借車量)情況下的預測力、誤差及借車量vs預測力的圖 >` [see commit](url)
-- `<繪製所有和模型預測力有關的圖 >` [see commit](url)
-- `<訓練含變數重要性的模型並繪製在不同應變數(借車量、還車量、淨借車量)情況下的不同變數的重要性 >` [see commit](url)
-- `<繪製比較不同應變數(借車量、還車量、淨借車量)情況下的預測力的圖 >` [see commit](url)
+- `<統計天氣資料 >` [c6a19ad]((https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/c6a19ada23a950432e737a66f12a349857638cfc))
+- `<切分dummy variable並將天氣資料、是否假日畫密度圖 >` [8d2ed1f](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/8d2ed1f8874dceac4f5dcd703f88e3c8000c9e2d)
+- `<繪製各站點在不同應變數(借車量、還車量、淨借車量)情況下的預測力、誤差及借車量vs預測力的圖 >` [c15675d](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/c15675d5aa64b5f5f98838c76a922f21fdb4a8ba)
+- `<繪製所有和模型預測力有關的圖 >` [0cdadd8](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/0cdadd8fd59e31330c2bf70802091c63d3c41c63)
+- `<訓練含變數重要性的模型並繪製在不同應變數(借車量、還車量、淨借車量)情況下的不同變數的重要性 >` [1e2d287](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/1e2d287027b2a649504b1a3794acea8004dee504)
+- `<繪製比較不同應變數(借車量、還車量、淨借車量)情況下的預測力的圖 >` [19f7b1e](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/19f7b1e44d04e0d3e41206840bb2513f4cfe2695)
   
 **`<吳祐儀>`**'s contribution
 - `<建立會議記錄檔案>` [826be0a](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/826be0afd887a96cda59eedaf7963ea5d3edf0b1)
