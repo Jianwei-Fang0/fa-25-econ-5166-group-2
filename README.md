@@ -52,8 +52,8 @@ After the poster presentation, please highlight each member's key contribution t
 - `<訓練含變數重要性的模型並繪製在不同應變數(借車量、還車量、淨借車量)情況下的不同變數的重要性 >` [see commit](url)
 - `<繪製比較不同應變數(借車量、還車量、淨借車量)情況下的預測力的圖 >` [see commit](url)
   
-**`<>`**'s contribution
-- `<Contribution >` [see commit](url)
+**`<吳祐儀>`**'s contribution
+- `<Contribution >` [826be0a](url)
 - `<Contribution >` [see commit](url)
 
 **`<>`**'s contribution
