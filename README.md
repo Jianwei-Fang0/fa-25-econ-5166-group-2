@@ -59,6 +59,15 @@ After the poster presentation, please highlight each member's key contribution t
 - <報告case study>
 - <影印海報>
 
+**`<馬一翔>`**'s contribution
+- <發想主題框架與具體細節>
+- `<建構stage 1 預測模型 >`[fba7a0b](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/fba7a0bfe2926110ebc68119c94efa452ec07cf4#diff-b0e46d789402cf670d9829989349079de65d87a402b343b170ee7b60bec1df0a)
+- `<建構stage 2 補車策略模型與結論>`[fba7a0b](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/fba7a0bfe2926110ebc68119c94efa452ec07cf4)
+- `<跑模型預測與觀察分析 R2>`[e8b69af](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/e8b69af1d058f80a97f02aadf6b89a2bcc25e484#diff-38b74ae9feb3b631254e0e4c93bb380b126fe8fe7ee60b5cb577f077d60dae1c)
+- `<合併調整raw data 並新增時間特徵自變數>` [fba7a0b](https://github.com/Jianwei-Fang0/fa-25-econ-5166-group-2/commit/fba7a0bfe2926110ebc68119c94efa452ec07cf4#diff-b276f2329f23bf49230cd08be9111b36a4c6fbb38fba773ea9db7f2ee2e89843)
+
+
+
 **`<>`**'s contribution
 - `<Contribution >` [see commit](url)
 - `<Contribution >` [see commit](url)
